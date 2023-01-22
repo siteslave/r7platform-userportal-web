@@ -16,6 +16,10 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 @NgModule({
   declarations: [],
@@ -36,6 +40,10 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     NzCardModule,
     NzTableModule,
     NzDividerModule,
+    NzPageHeaderModule,
+    NzSpaceModule,
+    NzToolTipModule,
+    NzSelectModule
   ],
   exports: [
     NzFormModule,
@@ -53,6 +61,10 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     NzCardModule,
     NzTableModule,
     NzDividerModule,
+    NzPageHeaderModule,
+    NzSpaceModule,
+    NzToolTipModule,
+    NzSelectModule
   ]
 })
 export class NgZorroModule { }
