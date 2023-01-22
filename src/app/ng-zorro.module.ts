@@ -13,6 +13,9 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 @NgModule({
   declarations: [],
@@ -30,6 +33,9 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
     NzDrawerModule,
     NzDropDownModule,
     NzGridModule,
+    NzCardModule,
+    NzTableModule,
+    NzDividerModule,
   ],
   exports: [
     NzFormModule,
@@ -44,6 +50,9 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
     NzDrawerModule,
     NzDropDownModule,
     NzGridModule,
+    NzCardModule,
+    NzTableModule,
+    NzDividerModule,
   ]
 })
 export class NgZorroModule { }
