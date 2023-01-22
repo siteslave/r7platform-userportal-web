@@ -5,6 +5,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { NgZorroModule } from '../../ng-zorro.module';
+import { CoreModule } from '../../core/core.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { NgZorroModule } from '../../ng-zorro.module';
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    CoreModule,
   ]
 })
 export class DashboardModule { }
