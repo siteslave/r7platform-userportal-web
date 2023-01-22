@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
+
+html,
+body {
+  font-family: 'Kanit', sans-serif;
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+nz-content {
+  margin: 0 16px;
+}
+
+.inner-content {
+  padding: 24px;
+  background: #fff;
+  min-height: calc(100vh - 180px);
+}
+
+nz-footer {
+  text-align: center;
+}

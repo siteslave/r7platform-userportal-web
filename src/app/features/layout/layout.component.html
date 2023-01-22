@@ -1,0 +1,51 @@
+<nz-layout>
+  <nz-sider nzCollapsible nzWidth="200px">
+    <div class="logo"></div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li nz-menu-item routerLink="/dashboard" routerLinkActive="ant-menu-item-selected">
+        <span nz-icon nzType="pie-chart"></span>
+        <span>Dashboard</span>
+      </li>
+      <li nz-submenu nzTitle="ผู้ใช้งานในระบบ" nzIcon="user">
+        <ul>
+          <li nz-menu-item routerLink="/users" routerLinkActive="ant-menu-item-selected">รายชื่อผู้ใช้งาน</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="หน่วยบริการ" nzIcon="team">
+        <ul>
+          <li nz-menu-item routerLink="/hospitals" routerLinkActive="ant-menu-item-selected">ทะเบียนหน่วยบริการ</li>
+        </ul>
+      </li>
+      <!-- <li nz-menu-item>
+        <span nz-icon nzType="file"></span>
+        <span>File</span>
+      </li> -->
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div nz-row>
+        <div nz-col nzFlex="auto"></div>
+        <div nz-col nzFlex="200px" style="text-align: right; padding-right: 16px;">
+          <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+            Satit Rianpit
+            <span nz-icon nzType="down"></span>
+          </a>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>เปลี่ยนรหัสผ่าน</li>
+              <li nz-menu-item nzDisabled>แก้ไขข้อมูลส่วนตัว</li>
+              <li nz-menu-divider></li>
+              <li nz-menu-item>ออกจากระบบ</li>
+
+            </ul>
+          </nz-dropdown-menu>
+        </div>
+
+      </div>
+
+    </nz-header>
+    <router-outlet></router-outlet>
+    <nz-footer>เขตสุขภาพที่ 7 ©2023 Implement By Dev@R7 Team</nz-footer>
+  </nz-layout>
+</nz-layout>
