@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserList } from '../../core/model/user';
+import { ModalNewUserComponent } from './modals/modal-new-user/modal-new-user.component';
 
 @Component({
   selector: 'app-users',
@@ -10,6 +11,8 @@ import { UserList } from '../../core/model/user';
 export class UsersComponent {
 
   constructor (private router: Router) { }
+
+  @ViewChild('mdlNewUser') private mdlNewUser: ModalNewUserComponent = new ModalNewUserComponent();
 
   province: any = '';
 
@@ -39,4 +42,10 @@ export class UsersComponent {
   onBack(): void {
     this.router.navigate(['/dashboard']);
   }
+
+  openNewUserRegister() {
+    this.mdlNewUser.showModal();
+  }
+
+  onSubmitRegister(event: any) { }
 }

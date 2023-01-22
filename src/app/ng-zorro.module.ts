@@ -20,6 +20,7 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 @NgModule({
   declarations: [],
@@ -43,7 +44,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     NzPageHeaderModule,
     NzSpaceModule,
     NzToolTipModule,
-    NzSelectModule
+    NzSelectModule,
+    NzModalModule
   ],
   exports: [
     NzFormModule,
@@ -64,7 +66,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     NzPageHeaderModule,
     NzSpaceModule,
     NzToolTipModule,
-    NzSelectModule
+    NzSelectModule,
+    NzModalModule
   ]
 })
 export class NgZorroModule { }

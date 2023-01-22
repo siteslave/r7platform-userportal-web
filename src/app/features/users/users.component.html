@@ -15,7 +15,7 @@
           <nz-option nzValue="46" nzLabel="กาฬสินธุ์"></nz-option>
         </nz-select>
         <button *nzSpaceItem nz-button>ค้นหา...</button>
-        <button *nzSpaceItem nz-button nzType="primary">+ เพิ่มผู้ใช้งาน</button>
+        <button *nzSpaceItem nz-button nzType="primary" (click)="openNewUserRegister()">+ เพิ่มผู้ใช้งาน</button>
       </nz-space>
     </nz-page-header-extra>
   </nz-page-header>
@@ -56,3 +56,5 @@
     </nz-table>
   </div>
 </nz-content>
+
+<app-modal-new-user #mdlNewUser (onSubmit)="onSubmitRegister($event)"></app-modal-new-user>

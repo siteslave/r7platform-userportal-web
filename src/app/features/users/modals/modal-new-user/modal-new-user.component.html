@@ -1,0 +1,61 @@
+<nz-modal [(nzVisible)]="isVisible" nzCentered="true" nzKeyboard="false" nzMaskClosable="false"
+  nzTitle="เพิ่มผู้ใช้งานใหม่" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <form nz-form (submit)="submitForm()">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="username">ชื่อผู้ใช้งาน</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+          <input nz-input name="username" type="username" id="username">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="password">รหัสผ่าน</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+          <div nz-row [nzGutter]="8">
+            <div nz-col [nzSpan]="12">
+              <input nz-input id="password" type="text" name="password" />
+            </div>
+            <div nz-col [nzSpan]="12">
+              <button nz-button nzType="default" (click)="randomPassword()">สุ่ม</button>
+            </div>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="email">E-mail</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+          <input nz-input name="email" type="email" id="email">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="email">จังหวัด</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+          <nz-select style="width: 100%;" ngModel="province">
+            <nz-option nzValue="40" nzLabel="ขอนแก่น"></nz-option>
+            <nz-option nzValue="44" nzLabel="มหาสารคาม"></nz-option>
+            <nz-option nzValue="45" nzLabel="ร้อยเอ็ด"></nz-option>
+            <nz-option nzValue="46" nzLabel="กาฬสินธุ์"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="email">หน่วยบริการ</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+          <nz-select style="width: 100%;" ngModel="province">
+            <nz-option nzValue="40" nzLabel="ขอนแก่น"></nz-option>
+            <nz-option nzValue="44" nzLabel="มหาสารคาม"></nz-option>
+            <nz-option nzValue="45" nzLabel="ร้อยเอ็ด"></nz-option>
+            <nz-option nzValue="46" nzLabel="กาฬสินธุ์"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="email">สถานะ</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+          <label nz-checkbox>เปิดใช้งาน</label>
+        </nz-form-control>
+
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>
