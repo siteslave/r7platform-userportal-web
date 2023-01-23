@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AxiosError } from 'axios';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { UserList } from '../../core/model/user';
@@ -27,32 +26,7 @@ export class UsersComponent {
 
   province: any = '';
 
-  usersDataSet: UserList[] = [
-    {
-      username: 'u11053',
-      first_name: 'สถิตย์',
-      last_name: 'เรียนพิศ',
-      email: 'rianpit@gmail.com',
-      enabled: true,
-      hospitals: {
-        hospcode: '11053',
-        hospname: 'รพ.กันทรวิชัย',
-      },
-      last_login: '2023-01-13 13:04:44'
-    },
-    {
-      username: 'u11054',
-      first_name: 'ทดสอบ',
-      last_name: 'ไม่เอาจริง',
-      email: 'xxxx@xxxxx.com',
-      enabled: false,
-      hospitals: {
-        hospcode: '11054',
-        hospname: 'รพ.เชียงยืน',
-      },
-      last_login: '2023-01-13 13:04:44'
-    },
-  ]
+  usersDataSet: UserList[] = [];
 
   onBack(): void {
     this.router.navigate(['/dashboard']);
@@ -67,8 +41,8 @@ export class UsersComponent {
   async getUserList() {
     const messageId = this.message.loading('Loading...', { nzDuration: 0 }).messageId;
     try {
-      const data = await this.userService.getUserList();
-      console.log(data);
+      const response = await this.userService.getUserList();
+      this.usersDataSet = response.data;
       this.message.remove(messageId);
     } catch (error: any) {
       this.message.remove(messageId);
