@@ -41,7 +41,8 @@
             "scripts": [],
             "allowedCommonJsDependencies": [
               "lodash",
-              "axios"
+              "axios",
+              "form-data"
             ]
           },
           "configurations": {
