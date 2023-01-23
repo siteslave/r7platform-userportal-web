@@ -34,8 +34,10 @@ export class UsersComponent {
       last_name: 'เรียนพิศ',
       email: 'rianpit@gmail.com',
       enabled: true,
-      hospcode: '11053',
-      hospname: 'รพ.กันทรวิชัย',
+      hospitals: {
+        hospcode: '11053',
+        hospname: 'รพ.กันทรวิชัย',
+      },
       last_login: '2023-01-13 13:04:44'
     },
     {
@@ -44,8 +46,10 @@ export class UsersComponent {
       last_name: 'ไม่เอาจริง',
       email: 'xxxx@xxxxx.com',
       enabled: false,
-      hospcode: '11054',
-      hospname: 'รพ.เชียงยืน',
+      hospitals: {
+        hospcode: '11054',
+        hospname: 'รพ.เชียงยืน',
+      },
       last_login: '2023-01-13 13:04:44'
     },
   ]

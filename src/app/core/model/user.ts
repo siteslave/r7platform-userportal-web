@@ -3,8 +3,10 @@ export interface UserList {
   first_name: string;
   last_name: string;
   email: string;
-  hospcode: string;
-  hospname: string;
+  hospitals: {
+    hospcode: string;
+    hospname: string;
+  }
   enabled: boolean;
   last_login: string;
 }
