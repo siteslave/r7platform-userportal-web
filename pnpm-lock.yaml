@@ -15,6 +15,7 @@ specifiers:
   '@ant-design/icons-angular': ^15.0.0
   '@auth0/angular-jwt': ^5.1.2
   '@types/jasmine': ~4.3.0
+  '@types/luxon': ^3.2.0
   axios: ^1.2.3
   echarts: ^5.4.1
   jasmine-core: ~4.5.0
@@ -23,6 +24,7 @@ specifiers:
   karma-coverage: ~2.2.0
   karma-jasmine: ~5.1.0
   karma-jasmine-html-reporter: ~2.0.0
+  luxon: ^3.2.1
   ng-zorro-antd: ^15.0.3
   ngx-echarts: ^15.0.1
   rxjs: ~7.8.0
@@ -43,6 +45,7 @@ dependencies:
   '@auth0/angular-jwt': 5.1.2_@angular+common@15.1.1
   axios: 1.2.3
   echarts: 5.4.1
+  luxon: 3.2.1
   ng-zorro-antd: 15.0.3_nryk7verljrd6kgesivhtzznhi
   ngx-echarts: 15.0.1_echarts@5.4.1
   rxjs: 7.8.0
@@ -54,6 +57,7 @@ devDependencies:
   '@angular/cli': 15.1.2
   '@angular/compiler-cli': 15.1.1_6cdwpve3qxqoyywhwxcsrh7cpq
   '@types/jasmine': 4.3.1
+  '@types/luxon': 3.2.0
   jasmine-core: 4.5.0
   karma: 6.4.1
   karma-chrome-launcher: 3.1.1
@@ -2164,6 +2168,10 @@ packages:
 
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
+    dev: true
+
+  /@types/luxon/3.2.0:
+    resolution: {integrity: sha512-lGmaGFoaXHuOLXFvuju2bfvZRqxAqkHPx9Y9IQdQABrinJJshJwfNCKV+u7rR3kJbiqfTF/NhOkcxxAFrObyaA==}
     dev: true
 
   /@types/mime/3.0.1:
@@ -4584,6 +4592,11 @@ packages:
     resolution: {integrity: sha512-ysxwsnTKdAx96aTRdhDOCQfDgbHnt8SK0KY8SEjO0wHinhWOFTESbjVCMPbU1uGXg/ch4lifqx0wfjOawU2+WA==}
     engines: {node: '>=12'}
     dev: true
+
+  /luxon/3.2.1:
+    resolution: {integrity: sha512-QrwPArQCNLAKGO/C+ZIilgIuDnEnKx5QYODdDtbFaxzsbZcc/a7WFq7MhsVYgRlwawLtvOUESTlfJ+hc/USqPg==}
+    engines: {node: '>=12'}
+    dev: false
 
   /magic-string/0.27.0:
     resolution: {integrity: sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==}

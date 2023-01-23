@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { DateTime, Duration } from 'luxon';
 
 import { UserList } from '../../core/model/user';
 import { ModalNewUserComponent } from './modals/modal-new-user/modal-new-user.component';
@@ -42,7 +43,11 @@ export class UsersComponent {
     const messageId = this.message.loading('Loading...', { nzDuration: 0 }).messageId;
     try {
       const response = await this.userService.getUserList();
-      this.usersDataSet = response.data;
+      this.usersDataSet = response.data.map((v: any) => {
+        const date = DateTime.fromISO(v.last_login).setLocale('th').toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS);
+        v.last_login = date;
+        return v;
+      });
       this.message.remove(messageId);
     } catch (error: any) {
       this.message.remove(messageId);
