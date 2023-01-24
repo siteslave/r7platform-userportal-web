@@ -10,3 +10,13 @@ export interface UserList {
   enabled: boolean;
   last_login: string;
 }
+
+export interface ICreateUser {
+  username: string;
+  password: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  province_code: string;
+  hospcode: string;
+}

@@ -1,7 +1,7 @@
 <nz-modal [(nzVisible)]="isVisible" nzCentered="true" nzKeyboard="false" nzMaskClosable="false"
   nzTitle="เพิ่มผู้ใช้งานใหม่" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
   <ng-container *nzModalContent>
-    <form nz-form [formGroup]="validateForm" (submit)="submitForm()">
+    <form nz-form [formGroup]="validateForm">
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzFor="username">ชื่อผู้ใช้งาน</nz-form-label>
         <nz-form-control [nzSpan]="14" nzErrorTip="ระบุชื่อผู้ใช้งาน">
@@ -22,15 +22,28 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="firstName">ชื่อ</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="ระบุชื่อ">
+          <input formControlName="firstName" nz-input id="firstName" type="text" name="firstName" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="firstName">สกุล</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="ระบุชื่อ">
+          <input formControlName="lastName" nz-input id="lastName" type="text" name="lastName" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
         <nz-form-label [nzSpan]="6" nzFor="email">E-mail</nz-form-label>
         <nz-form-control [nzSpan]="14" nzErrorTip="ระบุอีเมล์">
           <input nz-input formControlName="email" name="email" type="email" id="email">
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzFor="provinceCode">จังหวัด</nz-form-label>
-        <nz-form-control [nzSpan]="14" nzErrorTip="เลือกจังหวัด">
-          <nz-select style="width: 100%;" formControlName="provinceCode" id="provinceCode" name="provinceCode">
+        <nz-form-label [nzSpan]="6" nzFor="zoneCode">โซน</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="เลือกโซน">
+          <nz-select style="width: 100%;" formControlName="zoneCode" id="zoneCode" name="zoneCode"
+            (ngModelChange)="onChangeProvince($event)">
             <nz-option nzValue="40" nzLabel="ขอนแก่น"></nz-option>
             <nz-option nzValue="44" nzLabel="มหาสารคาม"></nz-option>
             <nz-option nzValue="45" nzLabel="ร้อยเอ็ด"></nz-option>
@@ -41,18 +54,16 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzFor="hospcode">หน่วยบริการ</nz-form-label>
         <nz-form-control [nzSpan]="14" nzErrorTip="เลือกหน่วยงาน">
-          <nz-select style="width: 100%;" id="hospcode" name="hospcode" formControlName="hospcode">
-            <nz-option nzValue="40" nzLabel="รพช.กันทรวิชัย"></nz-option>
-            <nz-option nzValue="44" nzLabel="รพช.เชียงยืน"></nz-option>
-            <nz-option nzValue="45" nzLabel="รพท.มหาสารคาม"></nz-option>
-            <nz-option nzValue="46" nzLabel="รพศ.ร้อยเอ็ด"></nz-option>
+          <nz-select style="width: 100%;" id="hospcode" name="hospcode" formControlName="hospcode"
+            [nzLoading]="isLoadingHospitals">
+            <nz-option *ngFor="let item of hospitals" [nzValue]="item.hospcode" [nzLabel]="item.hospname"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzFor="enabled">สถานะ</nz-form-label>
         <nz-form-control [nzSpan]="14">
-          <label nz-checkbox formControlName="enabled">เปิดใช้งาน</label>
+          <label nz-checkbox formControlName="enabled" id="enabled" name="enabled">เปิดใช้งาน</label>
         </nz-form-control>
 
       </nz-form-item>

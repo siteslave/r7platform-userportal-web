@@ -23,7 +23,7 @@ export class UsersComponent {
     this.getUserList();
   }
 
-  @ViewChild('mdlNewUser') private mdlNewUser: ModalNewUserComponent = new ModalNewUserComponent();
+  @ViewChild('mdlNewUser') private mdlNewUser!: ModalNewUserComponent;
 
   province: any = '';
 

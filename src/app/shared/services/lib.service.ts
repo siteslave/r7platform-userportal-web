@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-import { environment } from '../../../../environments/environment';
-import { ICreateUser } from '../../../core/model/user';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class LibService {
 
   private axiosInstance = axios.create({
-    baseURL: environment.apiUrl
+    baseURL: `${environment.apiUrl}/libs`
   });
 
   constructor () {
@@ -28,12 +27,14 @@ export class UserService {
     })
   }
 
-  async getUserList(provinceCode: any = '') {
-    const url = `/users?zone_code=${provinceCode}`;
+  async getHospitals(zoneCode: any) {
+    const url = `/hospitals?zone_code=${zoneCode}`;
     return this.axiosInstance.get(url);
   }
 
-  async save(user: ICreateUser) {
-    return this.axiosInstance.post('/users', user);
+  async getZones() {
+    const url = `/zones`;
+    return this.axiosInstance.get(url);
   }
+
 }
