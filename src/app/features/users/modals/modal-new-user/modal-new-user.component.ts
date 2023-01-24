@@ -19,8 +19,8 @@ export class ModalNewUserComponent {
   @Output() onSubmit = new EventEmitter<any>();
 
   isVisible = false;
-  isLoadingHospitals = false;
   hospitals: any = [];
+  zones: any = [];
 
   constructor (
     private randomString: RandomstringService,
@@ -40,6 +40,10 @@ export class ModalNewUserComponent {
       hospcode: [null, [Validators.required]],
       enabled: [true]
     });
+
+    // Get zones
+    this.getZones();
+
   }
 
   showModal(): void {
@@ -55,7 +59,7 @@ export class ModalNewUserComponent {
         last_name: this.validateForm.value.lastName,
         email: this.validateForm.value.email,
         hospcode: this.validateForm.value.hospcode,
-        province_code: this.validateForm.value.zoneCode
+        enabled: this.validateForm.value.enabled ? 'Y' : 'N'
       };
 
       this.doRegister(user);
@@ -101,14 +105,26 @@ export class ModalNewUserComponent {
 
   async getHospitals(zoneCode: any) {
     const messageId = this.message.loading('Loading...', { nzDuration: 0 }).messageId;
-    this.isLoadingHospitals = true;
     try {
       const response = await this.libService.getHospitals(zoneCode);
       this.hospitals = response.data;
       this.message.remove(messageId);
-      this.isLoadingHospitals = false;
     } catch (error: any) {
-      this.isLoadingHospitals = false;
+      this.message.remove(messageId);
+      this.message.error(`${error.code} - ${error.message}`);
+    }
+  }
+
+  async getZones() {
+    const messageId = this.message.loading('Loading...', { nzDuration: 0 }).messageId;
+    try {
+      const response = await this.libService.getZones();
+      this.zones = response.data.map((v: any) => {
+        v.name = `${v.name} (${v.ingress_zone})`;
+        return v;
+      });
+      this.message.remove(messageId);
+    } catch (error: any) {
       this.message.remove(messageId);
       this.message.error(`${error.code} - ${error.message}`);
     }

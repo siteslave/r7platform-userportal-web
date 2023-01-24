@@ -3,11 +3,10 @@ export interface UserList {
   first_name: string;
   last_name: string;
   email: string;
-  hospitals: {
-    hospcode: string;
-    hospname: string;
-  }
+  hospcode: string;
+  hospname: string;
   enabled: boolean;
+  zone_name: string;
   last_login: string;
 }
 
@@ -17,6 +16,6 @@ export interface ICreateUser {
   first_name: string;
   last_name: string;
   email: string;
-  province_code: string;
+  enabled: string;
   hospcode: string;
 }

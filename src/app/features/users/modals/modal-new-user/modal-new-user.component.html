@@ -28,7 +28,7 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzFor="firstName">สกุล</nz-form-label>
+        <nz-form-label [nzSpan]="6" nzFor="lastName">สกุล</nz-form-label>
         <nz-form-control [nzSpan]="14" nzErrorTip="ระบุชื่อ">
           <input formControlName="lastName" nz-input id="lastName" type="text" name="lastName" />
         </nz-form-control>
@@ -44,18 +44,14 @@
         <nz-form-control [nzSpan]="14" nzErrorTip="เลือกโซน">
           <nz-select style="width: 100%;" formControlName="zoneCode" id="zoneCode" name="zoneCode"
             (ngModelChange)="onChangeProvince($event)">
-            <nz-option nzValue="40" nzLabel="ขอนแก่น"></nz-option>
-            <nz-option nzValue="44" nzLabel="มหาสารคาม"></nz-option>
-            <nz-option nzValue="45" nzLabel="ร้อยเอ็ด"></nz-option>
-            <nz-option nzValue="46" nzLabel="กาฬสินธุ์"></nz-option>
+            <nz-option *ngFor="let zone of zones" [nzValue]="zone.code" [nzLabel]="zone.name"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzFor="hospcode">หน่วยบริการ</nz-form-label>
         <nz-form-control [nzSpan]="14" nzErrorTip="เลือกหน่วยงาน">
-          <nz-select style="width: 100%;" id="hospcode" name="hospcode" formControlName="hospcode"
-            [nzLoading]="isLoadingHospitals">
+          <nz-select style="width: 100%;" id="hospcode" name="hospcode" formControlName="hospcode">
             <nz-option *ngFor="let item of hospitals" [nzValue]="item.hospcode" [nzLabel]="item.hospname"></nz-option>
           </nz-select>
         </nz-form-control>

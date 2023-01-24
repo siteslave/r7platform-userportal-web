@@ -28,8 +28,8 @@ export class UserService {
     })
   }
 
-  async getUserList(provinceCode: any = '') {
-    const url = `/users?zone_code=${provinceCode}`;
+  async getUserList(zoneCode: any = '') {
+    const url = `/users?zone_code=${zoneCode}`;
     return this.axiosInstance.get(url);
   }
 
