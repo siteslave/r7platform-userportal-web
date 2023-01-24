@@ -12,13 +12,6 @@
           <nz-option nzValue="" nzLabel="ทุกโซน"></nz-option>
           <nz-option *ngFor="let zone of zones" [nzValue]="zone.code" [nzLabel]="zone.name"></nz-option>
         </nz-select>
-        <!-- <nz-select style="width: 150px;" ngModel="province" *nzSpaceItem>
-          <nz-option nzValue="00" nzLabel="ทุกจังหวัด"></nz-option>
-          <nz-option nzValue="40" nzLabel="ขอนแก่น"></nz-option>
-          <nz-option nzValue="44" nzLabel="มหาสารคาม"></nz-option>
-          <nz-option nzValue="45" nzLabel="ร้อยเอ็ด"></nz-option>
-          <nz-option nzValue="46" nzLabel="กาฬสินธุ์"></nz-option>
-        </nz-select> -->
         <button *nzSpaceItem nz-button disabled>ค้นหา...</button>
         <button *nzSpaceItem nz-button nzType="primary" (click)="openNewUserRegister()">+ เพิ่มผู้ใช้งาน</button>
       </nz-space>
