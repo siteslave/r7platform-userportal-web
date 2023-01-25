@@ -9,6 +9,7 @@ import { UserList } from '../../core/model/user';
 import { ModalNewUserComponent } from './modals/modal-new-user/modal-new-user.component';
 import { UserService } from './services/user.service';
 import { LibService } from '../../shared/services/lib.service';
+import { ModalChangePasswordComponent } from './modals/modal-change-password/modal-change-password.component';
 
 @Component({
   selector: 'app-users',
@@ -17,6 +18,7 @@ import { LibService } from '../../shared/services/lib.service';
 })
 export class UsersComponent {
   @ViewChild('mdlNewUser') private mdlNewUser!: ModalNewUserComponent;
+  @ViewChild('mdlChangePassword') private mdlChangePassword!: ModalChangePasswordComponent;
 
   zoneCode: any = '';
   usersDataSet: UserList[] = [];
@@ -54,6 +56,10 @@ export class UsersComponent {
   onChangeZone(event: any) {
     this.zoneCode = event;
     this.getUserList();
+  }
+
+  changePassword(id: any) {
+    this.mdlChangePassword.showModal(id)
   }
 
   async getZones() {

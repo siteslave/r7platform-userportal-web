@@ -48,6 +48,8 @@
             <nz-button-group>
               <button (click)="openEditUser(data.id)" nz-button nzType="default" nzTooltipTitle="แก้ไข"><span nz-icon
                   nzType="edit"></span></button>
+              <button (click)="changePassword(data.id)" nz-button nzType="default"
+                nzTooltipTitle="เปลี่ยนรหัสผ่าน"><span nz-icon nzType="form"></span></button>
               <button nz-button nzType="default" disabled><span nz-icon nzType="area-chart"
                   nzTooltipTitle="ประวัติการใช้งาน"></span></button>
             </nz-button-group>
@@ -59,3 +61,4 @@
 </nz-content>
 
 <app-modal-new-user #mdlNewUser (onSubmit)="onSubmitRegister($event)"></app-modal-new-user>
+<app-modal-change-password #mdlChangePassword></app-modal-change-password>

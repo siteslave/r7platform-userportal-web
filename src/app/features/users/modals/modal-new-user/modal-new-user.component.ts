@@ -18,6 +18,7 @@ export class ModalNewUserComponent {
 
   @Output() onSubmit = new EventEmitter<any>();
 
+  isOkLoading = false;
   isVisible = false;
   hospitals: any = [];
   zones: any = [];
@@ -83,44 +84,51 @@ export class ModalNewUserComponent {
         this.doRegister(user)
 
       }
-      return;
+      return
     } else {
       Object.values(this.validateForm.controls).forEach(control => {
         if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
+          control.markAsDirty()
+          control.updateValueAndValidity({ onlySelf: true })
         }
       });
-      return;
+      return
     }
   }
 
   handleCancel(): void {
-    this.validateForm.reset();
-    this.isVisible = false;
+    this.validateForm.reset()
+    this.isOkLoading = false
+    this.isVisible = false
   }
 
   async doRegister(user: ICreateUser) {
-    const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId;
+    this.isOkLoading = true
+    const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId
     try {
-      await this.userService.save(user);
-      this.message.remove(messageId);
-      this.isVisible = false;
-      this.onSubmit.emit(true);
+      await this.userService.save(user)
+      this.message.remove(messageId)
+      this.isOkLoading = false
+      this.isVisible = false
+      this.onSubmit.emit(true)
     } catch (error: any) {
-      this.message.remove(messageId);
-      this.message.error(`${error.code} - ${error.message}`);
+      this.isOkLoading = false
+      this.message.remove(messageId)
+      this.message.error(`${error.code} - ${error.message}`)
     }
   }
 
   async doUpdate(user: IUpdateUser) {
-    const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId;
+    this.isOkLoading = true
+    const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId
     try {
-      await this.userService.update(this.userId, user);
-      this.message.remove(messageId);
-      this.isVisible = false;
+      await this.userService.update(this.userId, user)
+      this.message.remove(messageId)
+      this.isOkLoading = false
+      this.isVisible = false
       this.onSubmit.emit(true);
     } catch (error: any) {
+      this.isOkLoading = false
       this.message.remove(messageId);
       this.message.error(`${error.code} - ${error.message}`);
     }
