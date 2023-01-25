@@ -16,7 +16,7 @@
               <input formControlName="password" nz-input id="password" type="text" name="password" />
             </div>
             <div nz-col [nzSpan]="12">
-              <button nz-button nzType="default" (click)="randomPassword()">สุ่ม</button>
+              <button nz-button nzType="default" [disabled]="userId" (click)="randomPassword()">สุ่ม</button>
             </div>
           </div>
         </nz-form-control>

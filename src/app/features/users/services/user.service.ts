@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { environment } from '../../../../environments/environment';
-import { ICreateUser } from '../../../core/model/user';
+import { ICreateUser, IUpdateUser } from '../../../core/model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -30,10 +30,19 @@ export class UserService {
 
   async getUserList(zoneCode: any = '') {
     const url = `/users?zone_code=${zoneCode}`;
-    return this.axiosInstance.get(url);
+    return await this.axiosInstance.get(url);
+  }
+
+  async info(id: any) {
+    const url = `/users/${id}/info`;
+    return await this.axiosInstance.get(url);
   }
 
   async save(user: ICreateUser) {
-    return this.axiosInstance.post('/users', user);
+    return await this.axiosInstance.post('/users', user);
+  }
+
+  async update(id: any, user: IUpdateUser) {
+    return await this.axiosInstance.put(`/users/${id}/edit`, user);
   }
 }

@@ -34,16 +34,20 @@ export class UsersComponent {
   }
 
   onBack(): void {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/dashboard'])
+  }
+
+  openEditUser(id: any) {
+    this.mdlNewUser.showModal(id)
   }
 
   openNewUserRegister() {
-    this.mdlNewUser.showModal();
+    this.mdlNewUser.showModal()
   }
 
   onSubmitRegister(event: any) {
     if (event) {
-      this.getUserList();
+      this.getUserList()
     }
   }
 
@@ -53,16 +57,16 @@ export class UsersComponent {
   }
 
   async getZones() {
-    const messageId = this.message.loading('Loading...', { nzDuration: 0 }).messageId;
+    // const messageId = this.message.loading('Loading...', { nzDuration: 0 }).messageId;
     try {
       const response = await this.libService.getZones();
       this.zones = response.data.map((v: any) => {
         v.name = `${v.name} (${v.ingress_zone})`;
         return v;
       });
-      this.message.remove(messageId);
+      // this.message.remove(messageId);
     } catch (error: any) {
-      this.message.remove(messageId);
+      // this.message.remove(messageId);
       this.message.error(`${error.code} - ${error.message}`);
     }
   }
