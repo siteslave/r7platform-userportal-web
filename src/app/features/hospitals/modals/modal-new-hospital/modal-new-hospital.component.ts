@@ -1,18 +1,16 @@
-
 import { Component, EventEmitter, Output } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { ICreateUser, IUpdateUser } from '../../../../core/model/user';
-import { RandomstringService } from '../../../../core/services/randomstring.service';
+import { ICreateHospital, IUpdateHospital } from '../../../../core/model/hospital';
 import { LibService } from '../../../../shared/services/lib.service';
-import { UserService } from '../../services/user.service';
+import { HospitalService } from '../../services/hospital.service';
 
 @Component({
-  selector: 'app-modal-new-user',
-  templateUrl: './modal-new-user.component.html',
-  styleUrls: ['./modal-new-user.component.css']
+  selector: 'app-modal-new-hospital',
+  templateUrl: './modal-new-hospital.component.html',
+  styleUrls: ['./modal-new-hospital.component.css']
 })
-export class ModalNewUserComponent {
+export class ModalNewHospitalComponent {
 
   validateForm!: UntypedFormGroup;
 
@@ -20,24 +18,18 @@ export class ModalNewUserComponent {
 
   isOkLoading = false;
   isVisible = false;
-  hospitals: any = [];
   zones: any = [];
-  userId: any = '';
+  hospcode: any = '';
 
   constructor (
-    private randomString: RandomstringService,
     private libService: LibService,
-    private userService: UserService,
+    private hospitalService: HospitalService,
     private message: NzMessageService,
     private fb: UntypedFormBuilder) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      username: [null, [Validators.required]],
-      password: [null, [Validators.required]],
-      email: [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      firstName: [null, [Validators.required]],
-      lastName: [null, [Validators.required]],
+      hospname: [null, [Validators.required]],
       zoneCode: [null, [Validators.required]],
       hospcode: [null, [Validators.required]],
       enabled: [true]
@@ -48,10 +40,13 @@ export class ModalNewUserComponent {
 
   }
 
-  showModal(id: any = ''): void {
-    this.userId = id
-    if (id) {
-      this.getUserInfo(id)
+  showModal(hospcode: any = ''): void {
+
+    this.validateForm.reset()
+    this.validateForm.controls['hospcode'].enable()
+    this.hospcode = hospcode
+    if (hospcode) {
+      this.getHospitalInfo(hospcode)
     }
 
     this.isVisible = true
@@ -59,29 +54,24 @@ export class ModalNewUserComponent {
 
   handleOk(): void {
     if (this.validateForm.valid) {
-      if (this.userId) {
-        let user: IUpdateUser = {
-          first_name: this.validateForm.value.firstName,
-          last_name: this.validateForm.value.lastName,
-          email: this.validateForm.value.email,
-          hospcode: this.validateForm.value.hospcode,
+      if (this.hospcode) {
+        let hospital: IUpdateHospital = {
+          hospname: this.validateForm.value.hospname,
+          zone_code: this.validateForm.value.zoneCode,
           enabled: this.validateForm.value.enabled ? 'Y' : 'N'
         }
 
-        this.doUpdate(user)
+        this.doUpdate(hospital)
 
       } else {
-        let user: ICreateUser = {
-          username: this.validateForm.value.username,
-          password: this.validateForm.value.password,
-          first_name: this.validateForm.value.firstName,
-          last_name: this.validateForm.value.lastName,
-          email: this.validateForm.value.email,
+        let hospital: ICreateHospital = {
+          zone_code: this.validateForm.value.zoneCode,
+          hospname: this.validateForm.value.hospname,
           hospcode: this.validateForm.value.hospcode,
           enabled: this.validateForm.value.enabled ? 'Y' : 'N'
         }
 
-        this.doRegister(user)
+        this.doRegister(hospital)
 
       }
       return
@@ -102,11 +92,11 @@ export class ModalNewUserComponent {
     this.isVisible = false
   }
 
-  async doRegister(user: ICreateUser) {
+  async doRegister(hospital: ICreateHospital) {
     this.isOkLoading = true
     const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId
     try {
-      await this.userService.save(user)
+      await this.hospitalService.save(hospital)
       this.message.remove(messageId)
       this.isOkLoading = false
       this.isVisible = false
@@ -118,11 +108,11 @@ export class ModalNewUserComponent {
     }
   }
 
-  async doUpdate(user: IUpdateUser) {
+  async doUpdate(hospital: IUpdateHospital) {
     this.isOkLoading = true
     const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId
     try {
-      await this.userService.update(this.userId, user)
+      await this.hospitalService.update(this.hospcode, hospital)
       this.message.remove(messageId)
       this.isOkLoading = false
       this.isVisible = false
@@ -134,53 +124,22 @@ export class ModalNewUserComponent {
     }
   }
 
-  randomPassword() {
-    const randomPassword = this.randomString.generateRandomString();
-    this.validateForm.patchValue({ password: randomPassword });
-  }
-
-  onChangeProvince(event: any) {
-    this.getHospitals(event);
-  }
-
-  async getUserInfo(id: any) {
+  async getHospitalInfo(hospcode: any) {
     const messageId = this.message.loading('Loading...', { nzDuration: 0 }).messageId;
     try {
-      const response: any = await this.userService.info(id);
-      const user = response.data
+      const response: any = await this.hospitalService.info(hospcode);
+      const hospital = response.data
 
       this.validateForm.patchValue({
-        username: user.username,
-        firstName: user.first_name,
-        lastName: user.last_name,
-        email: user.email,
-        zoneCode: user.zone_code,
-        enabled: user.enabled,
+        hospname: hospital.hospname,
+        hospcode: hospital.hospcode,
+        zoneCode: hospital.zone_code,
+        enabled: hospital.enabled,
       })
 
-      // load hospitals
-      this.getHospitals(user.zone_code)
-      // patch value
-      this.validateForm.patchValue({
-        hospcode: user.hospcode,
-      })
-
-      this.validateForm.controls['username'].disable()
-      this.validateForm.controls['password'].disable()
+      this.validateForm.controls['hospcode'].disable()
 
       this.message.remove(messageId)
-    } catch (error: any) {
-      this.message.remove(messageId);
-      this.message.error(`${error.code} - ${error.message}`);
-    }
-  }
-
-  async getHospitals(zoneCode: any) {
-    const messageId = this.message.loading('Loading...', { nzDuration: 0 }).messageId;
-    try {
-      const response = await this.libService.getHospitals(zoneCode);
-      this.hospitals = response.data;
-      this.message.remove(messageId);
     } catch (error: any) {
       this.message.remove(messageId);
       this.message.error(`${error.code} - ${error.message}`);
@@ -201,5 +160,4 @@ export class ModalNewUserComponent {
       this.message.error(`${error.code} - ${error.message}`);
     }
   }
-
 }
