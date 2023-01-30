@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "npx ng",
     "start": "npx ng serve",
-    "build": "npx ng build --base-href=./",
+    "build": "npx ng build --configuration production --output-path=./dist/web --base-href=./",
     "watch": "npx ng build --watch --configuration development",
     "test": "npx ng test"
   },
