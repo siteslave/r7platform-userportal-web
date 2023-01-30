@@ -49,6 +49,7 @@ export class ModalNewUserComponent {
   }
 
   showModal(id: any = ''): void {
+    this.validateForm.reset()
     this.userId = id
     if (id) {
       this.getUserInfo(id)
