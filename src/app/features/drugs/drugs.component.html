@@ -1,0 +1,58 @@
+<nz-content>
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>Dashboard</nz-breadcrumb-item>
+    <nz-breadcrumb-item>ข้อมูลยาและเวชภัณฑ์</nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <nz-page-header style="background-color: white;" class="site-page-header" (nzBack)="onBack()" nzBackIcon
+    nzTitle="รายการยาและเวชภัณฑ์" nzSubtitle="รายการยาที่ใช้ในหน่วยบริการ">
+    <nz-page-header-extra>
+      <nz-space>
+        <button *nzSpaceItem nz-button>
+          <span nz-icon nzType="search"></span>
+          ค้นหา...</button>
+        <button *nzSpaceItem nz-button nzType="primary">
+          <span nz-icon nzType="cloud-upload"></span>
+          อัปโหลดไฟล์</button>
+
+      </nz-space>
+    </nz-page-header-extra>
+  </nz-page-header>
+  <div class="inner-content">
+
+    <nz-table #userTable nzSize="small" [nzData]="datasets">
+      <thead>
+        <tr>
+          <th>รหัส</th>
+          <th>รายละเอียด</th>
+          <th>TMT</th>
+          <th>24 หลัก</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of userTable.data">
+          <td>{{data.username}}</td>
+          <td>{{data.first_name}} {{data.last_name}}</td>
+          <td>{{data.hospcode}} {{data.hospname}}</td>
+          <td>{{data.zone_name}}</td>
+          <td style="text-align: center;">
+            <span *ngIf="data.enabled" nz-icon nzType="check-circle" nzTheme="outline" [nzTheme]="'twotone'"
+              [nzTwotoneColor]="'#52c41a'"></span>
+            <span *ngIf="!data.enabled" nz-icon nzType="close-circle" nzTheme="outline" [nzTheme]="'twotone'"
+              [nzTwotoneColor]="'#eb2f96'"></span>
+          </td>
+          <td>{{data.last_login}}</td>
+          <td style="text-align: center;">
+            <nz-button-group>
+              <button nz-button nzType="default" nzTooltipTitle="แก้ไข"><span nz-icon nzType="edit"></span></button>
+              <button nz-button nzType="default" nzTooltipTitle="เปลี่ยนรหัสผ่าน"><span nz-icon
+                  nzType="form"></span></button>
+              <button nz-button nzType="default" disabled><span nz-icon nzType="area-chart"
+                  nzTooltipTitle="ประวัติการใช้งาน"></span></button>
+            </nz-button-group>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</nz-content>

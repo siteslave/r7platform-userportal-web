@@ -6,20 +6,29 @@
         <span nz-icon nzType="pie-chart"></span>
         <span>Dashboard</span>
       </li>
-      <li nz-submenu nzTitle="ผู้ใช้งานในระบบ" nzIcon="user">
+      <li nz-submenu nzTitle="สถิติต่างๆ" nzIcon="area-chart">
         <ul>
-          <li nz-menu-item routerLink="/users" routerLinkActive="ant-menu-item-selected">รายชื่อผู้ใช้งาน</li>
+          <li nz-menu-item routerLink="/hospitals" routerLinkActive="ant-menu-item-selected">สถิติการส่งข้อมูล</li>
+          <li nz-menu-item routerLink="/hospitals" routerLinkActive="ant-menu-item-selected">ตารางข้อมูล</li>
         </ul>
       </li>
-      <li nz-submenu nzTitle="หน่วยบริการ" nzIcon="team">
+      <li nz-submenu nzTitle="ข้อมูลพื้นฐาน" nzIcon="database">
         <ul>
-          <li nz-menu-item routerLink="/hospitals" routerLinkActive="ant-menu-item-selected">ทะเบียนหน่วยบริการ</li>
+          <li nz-menu-item routerLink="/users" routerLinkActive="ant-menu-item-selected">ข้อมูลยาและเวชภัณฑ์</li>
+          <li nz-menu-item routerLink="/users" routerLinkActive="ant-menu-item-selected">ข้อมูลวิธีการใช้</li>
+          <li nz-menu-item routerLink="/users" routerLinkActive="ant-menu-item-selected">ข้อมูล LAB</li>
+          <li nz-menu-item routerLink="/users" routerLinkActive="ant-menu-item-selected">ข้อมูลอาชีพ</li>
+          <li nz-menu-item routerLink="/users" routerLinkActive="ant-menu-item-selected">ข้อมูลสิทธิ์การรักษา</li>
+          <li nz-menu-item routerLink="/users" routerLinkActive="ant-menu-item-selected">ข้อมูลเจ้าหน้าที่</li>
         </ul>
       </li>
-      <!-- <li nz-menu-item>
-        <span nz-icon nzType="file"></span>
-        <span>File</span>
-      </li> -->
+
+      <li nz-submenu nzTitle="จัดการระบบ" nzIcon="setting">
+        <ul>
+          <li nz-menu-item routerLink="/hospitals" routerLinkActive="ant-menu-item-selected">ตั้งค่าระบบ</li>
+          <li nz-menu-item routerLink="/hospitals" routerLinkActive="ant-menu-item-selected">ผู้ใช้งานในหน่วยงาน</li>
+        </ul>
+      </li>
     </ul>
   </nz-sider>
   <nz-layout>
