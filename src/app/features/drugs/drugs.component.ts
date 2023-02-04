@@ -115,7 +115,23 @@ export class DrugsComponent {
     }
   }
 
-  confirmRemove() { }
+  async removeDrug(code: any) {
+    this.loading = true
+    try {
+      await this.drugService.remove(code)
+      this.loading = false
+      this.getDrugs()
+    } catch (error: any) {
+      this.loading = false
+      this.message.error(`${error.code} - ${error.message}`)
+    }
+  }
+
+  confirmRemove(code: any) {
+    if (code) {
+      this.removeDrug(code)
+    }
+  }
 
   cancelRemove() { }
 }

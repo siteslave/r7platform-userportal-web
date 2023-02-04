@@ -24,6 +24,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 @NgModule({
   declarations: [],
@@ -51,7 +52,8 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
     NzModalModule,
     NzUploadModule,
     NzPaginationModule,
-    NzPopconfirmModule
+    NzPopconfirmModule,
+    NzTypographyModule
   ],
   exports: [
     NzFormModule,
@@ -76,7 +78,8 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
     NzModalModule,
     NzUploadModule,
     NzPaginationModule,
-    NzPopconfirmModule
+    NzPopconfirmModule,
+    NzTypographyModule
   ]
 })
 export class NgZorroModule { }

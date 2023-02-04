@@ -13,7 +13,8 @@
         <button *nzSpaceItem nz-button (click)="refresh()">
           <span nz-icon nzType="reload"></span>
           รีเฟรช</button>
-        <nz-upload *nzSpaceItem [nzAction]="uploadUrl" [nzHeaders]="uploadHeader" (nzChange)="handleChange($event)">
+        <nz-upload *nzSpaceItem [nzAction]="uploadUrl" [nzHeaders]="uploadHeader" (nzChange)="handleChange($event)"
+          nzFileType="text/csv">
           <button nz-button nzType="primary">
             <span nz-icon nzType="upload"></span>
             อัปโหลดไฟล์
@@ -48,8 +49,8 @@
               <button nz-button nzType="default"><span nz-icon nzType="edit"></span></button>
               <button nz-button nzType="default"><span nz-icon nzType="apartment"></span></button>
               <button nz-button nzType="default" nz-popconfirm nzPopconfirmTitle="ลบรายการ ใช่หรือไม่?" nzOkText="ใช่"
-                nzCancelText="ไม่ใช่" (nzOnConfirm)="confirmRemove()" (nzOnCancel)="cancelRemove()"><span nz-icon
-                  nzType="delete"></span></button>
+                nzCancelText="ไม่ใช่" (nzOnConfirm)="confirmRemove(data.code)" (nzOnCancel)="cancelRemove()"><span
+                  nz-icon nzType="delete"></span></button>
             </nz-button-group>
           </td>
         </tr>

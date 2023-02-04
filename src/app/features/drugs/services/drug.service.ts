@@ -31,4 +31,10 @@ export class DrugService {
     const url = `/list?query=${query}&limit=${limit}&offset=${offset}`
     return this.axiosInstance.get(url)
   }
+
+  remove(code: any): Promise<AxiosResponse> {
+    const url = `/${code}/delete`
+    return this.axiosInstance.delete(url)
+  }
+
 }
