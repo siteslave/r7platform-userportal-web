@@ -51,7 +51,8 @@
             <nz-button-group>
               <button nz-button nzType="default" (click)="editItem(data.code, data.name)"><span nz-icon
                   nzType="edit"></span></button>
-              <button nz-button nzType="default"><span nz-icon nzType="apartment"></span></button>
+              <button nz-button nzType="default" (click)="showMapping
+              (data)"><span nz-icon nzType="apartment"></span></button>
               <button nz-button nzType="default" nz-popconfirm nzPopconfirmTitle="ลบรายการ ใช่หรือไม่?" nzOkText="ใช่"
                 nzCancelText="ไม่ใช่" (nzOnConfirm)="confirmRemove(data.code)" (nzOnCancel)="cancelRemove()"><span
                   nz-icon nzType="delete"></span></button>
@@ -70,4 +71,5 @@
 
 <app-modal-search #mdlSearch (onSubmit)="onSearchSubmit($event)"></app-modal-search>
 
-<app-modal-drug-new #mdlNewDrug (onSubmit)="onAddSubmit($event)"></app-modal-drug-new>
+<app-modal-drug-new #mdlDrugNew (onSubmit)="onAddSubmit($event)"></app-modal-drug-new>
+<app-modal-drug-mapping #mdlDrugMapping (onSubmit)="onMappingSubmit($event)"></app-modal-drug-mapping>

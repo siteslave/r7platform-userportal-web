@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios, { AxiosResponse } from 'axios';
 import { environment } from '../../../../environments/environment';
-import { ICreateDrug, IUpdateDrug } from '../../../core/model/drug';
+import { ICreateDrug, IMappingDrug, IUpdateDrug } from '../../../core/model/drug';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +44,10 @@ export class DrugService {
 
   async update(code: any, drug: IUpdateDrug): Promise<AxiosResponse> {
     return await this.axiosInstance.put(`/${code}/update`, drug)
+  }
+
+  async mapping(mapping: IMappingDrug): Promise<AxiosResponse> {
+    return await this.axiosInstance.post(`/mapping`, mapping)
   }
 
 }
