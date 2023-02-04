@@ -32,7 +32,10 @@ const routes: Routes = [
       },
     ]
   },
-  { path: 'not-found', loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule) },
+  {
+    path: 'not-found',
+    loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule)
+  },
 
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
 ];
