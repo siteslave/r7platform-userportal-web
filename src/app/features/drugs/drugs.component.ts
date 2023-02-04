@@ -74,6 +74,7 @@ export class DrugsComponent {
 
   onAddSubmit(saved: boolean) {
     if (saved) {
+      this.message.success('ดำเนินการเสร็จเรียบร้อย')
       this.getDrugs()
     }
   }
@@ -128,6 +129,7 @@ export class DrugsComponent {
     try {
       await this.drugService.remove(code)
       this.loading = false
+      this.message.success('ดำเนินการเสร็จเรียบร้อย')
       this.getDrugs()
     } catch (error: any) {
       this.loading = false
@@ -145,5 +147,9 @@ export class DrugsComponent {
 
   addItem() {
     this.mdlNewDrug.showModal()
+  }
+
+  editItem(code: any, name: any) {
+    this.mdlNewDrug.showModal(code, name)
   }
 }
