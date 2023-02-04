@@ -13,7 +13,11 @@
         <button *nzSpaceItem nz-button (click)="refresh()">
           <span nz-icon nzType="reload"></span>
           รีเฟรช</button>
-        <nz-upload *nzSpaceItem [nzAction]="uploadUrl" [nzHeaders]="uploadHeader" (nzChange)="handleChange($event)">
+        <button *nzSpaceItem nz-button (click)="addItem()">
+          <span nz-icon nzType="plus"></span>
+          เพิ่ม</button>
+        <nz-upload *nzSpaceItem [nzAction]="uploadUrl" [nzHeaders]="uploadHeader" (nzChange)="handleChange($event)"
+          nzFileType="text/csv" [nzSize]="2048">
           <button nz-button nzType="primary">
             <span nz-icon nzType="upload"></span>
             อัปโหลดไฟล์
@@ -45,11 +49,13 @@
           <td>{{data.updated_at}}</td>
           <td style="text-align: center;">
             <nz-button-group>
-              <button nz-button nzType="default" nzTooltipTitle="แก้ไข"><span nz-icon nzType="edit"></span></button>
-              <button nz-button nzType="default" nzTooltipTitle="เปลี่ยนรหัสผ่าน"><span nz-icon
-                  nzType="form"></span></button>
-              <button nz-button nzType="default" disabled><span nz-icon nzType="area-chart"
-                  nzTooltipTitle="ประวัติการใช้งาน"></span></button>
+              <button nz-button nzType="default" (click)="editItem(data.code, data.name)"><span nz-icon
+                  nzType="edit"></span></button>
+              <button nz-button nzType="default" (click)="showMapping
+              (data)"><span nz-icon nzType="apartment"></span></button>
+              <button nz-button nzType="default" nz-popconfirm nzPopconfirmTitle="ลบรายการ ใช่หรือไม่?" nzOkText="ใช่"
+                nzCancelText="ไม่ใช่" (nzOnConfirm)="confirmRemove(data.code)" (nzOnCancel)="cancelRemove()"><span
+                  nz-icon nzType="delete"></span></button>
             </nz-button-group>
           </td>
         </tr>
@@ -64,3 +70,6 @@
 </nz-content>
 
 <app-modal-search #mdlSearch (onSubmit)="onSearchSubmit($event)"></app-modal-search>
+
+<app-modal-drug-new #mdlDrugNew (onSubmit)="onAddSubmit($event)"></app-modal-drug-new>
+<app-modal-drug-mapping #mdlDrugMapping (onSubmit)="onMappingSubmit($event)"></app-modal-drug-mapping>

@@ -1,11 +1,13 @@
 import { Component, ViewChild } from '@angular/core'
 import { Router } from '@angular/router'
-import { AxiosResponse } from 'axios'
 import { DateTime } from 'luxon'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload'
 import { environment } from '../../../environments/environment'
+import { IDrug } from '../../core/model/drug'
 import { ModalSearchComponent } from '../../shared/modals/modal-search/modal-search.component'
+import { ModalDrugMappingComponent } from './modals/modal-drug-mapping/modal-drug-mapping.component'
+import { ModalDrugNewComponent } from './modals/modal-drug-new/modal-drug-new.component'
 import { DrugService } from './services/drug.service'
 
 @Component({
@@ -16,8 +18,10 @@ import { DrugService } from './services/drug.service'
 export class DrugsComponent {
 
   @ViewChild('mdlSearch') private mdlSearch!: ModalSearchComponent;
+  @ViewChild('mdlDrugNew') private mdlDrugNew!: ModalDrugNewComponent;
+  @ViewChild('mdlDrugMapping') private mdlDrugMapping!: ModalDrugMappingComponent;
 
-  datasets: any = []
+  datasets: IDrug[] = []
   query: any = ''
   uploadUrl: any = ''
   uploadHeader: any = ''
@@ -70,6 +74,20 @@ export class DrugsComponent {
     }
   }
 
+  onAddSubmit(saved: boolean) {
+    if (saved) {
+      this.message.success('ดำเนินการเสร็จเรียบร้อย')
+      this.getDrugs()
+    }
+  }
+
+  onMappingSubmit(saved: boolean) {
+    if (saved) {
+      this.message.success('ดำเนินการเสร็จเรียบร้อย')
+      this.getDrugs()
+    }
+  }
+
   handleChange(info: NzUploadChangeParam): void {
     if (info.file.status === 'done') {
       this.message.success(`${info.file.name} file uploaded successfully`)
@@ -115,4 +133,36 @@ export class DrugsComponent {
     }
   }
 
+  async removeDrug(code: any) {
+    this.loading = true
+    try {
+      await this.drugService.remove(code)
+      this.loading = false
+      this.message.success('ดำเนินการเสร็จเรียบร้อย')
+      this.getDrugs()
+    } catch (error: any) {
+      this.loading = false
+      this.message.error(`${error.code} - ${error.message}`)
+    }
+  }
+
+  confirmRemove(code: any) {
+    if (code) {
+      this.removeDrug(code)
+    }
+  }
+
+  cancelRemove() { }
+
+  addItem() {
+    this.mdlDrugNew.showModal()
+  }
+
+  editItem(code: any, name: any) {
+    this.mdlDrugNew.showModal(code, name)
+  }
+
+  showMapping(drug: IDrug) {
+    this.mdlDrugMapping.showModal(drug)
+  }
 }
