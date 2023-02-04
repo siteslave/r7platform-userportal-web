@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DrugsRoutingModule } from './drugs-routing.module';
 import { DrugsComponent } from './drugs.component';
 import { NgZorroModule } from '../../ng-zorro.module';
-
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,8 @@ import { NgZorroModule } from '../../ng-zorro.module';
   imports: [
     CommonModule,
     NgZorroModule,
-    DrugsRoutingModule
+    SharedModule,
+    DrugsRoutingModule,
   ]
 })
 export class DrugsModule { }
