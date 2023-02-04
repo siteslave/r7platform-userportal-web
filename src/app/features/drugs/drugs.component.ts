@@ -6,6 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message'
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload'
 import { environment } from '../../../environments/environment'
 import { ModalSearchComponent } from '../../shared/modals/modal-search/modal-search.component'
+import { ModalDrugNewComponent } from './modals/modal-drug-new/modal-drug-new.component'
 import { DrugService } from './services/drug.service'
 
 @Component({
@@ -16,6 +17,7 @@ import { DrugService } from './services/drug.service'
 export class DrugsComponent {
 
   @ViewChild('mdlSearch') private mdlSearch!: ModalSearchComponent;
+  @ViewChild('mdlNewDrug') private mdlNewDrug!: ModalDrugNewComponent;
 
   datasets: any = []
   query: any = ''
@@ -66,6 +68,12 @@ export class DrugsComponent {
   onSearchSubmit(query: any) {
     if (query) {
       this.query = query
+      this.getDrugs()
+    }
+  }
+
+  onAddSubmit(saved: boolean) {
+    if (saved) {
       this.getDrugs()
     }
   }
@@ -134,4 +142,8 @@ export class DrugsComponent {
   }
 
   cancelRemove() { }
+
+  addItem() {
+    this.mdlNewDrug.showModal()
+  }
 }

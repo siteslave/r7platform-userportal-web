@@ -7,6 +7,7 @@ import { NgZorroModule } from '../../ng-zorro.module';
 import { SharedModule } from '../../shared/shared.module';
 import { ModalDrugMappingComponent } from './modals/modal-drug-mapping/modal-drug-mapping.component';
 import { ModalDrugNewComponent } from './modals/modal-drug-new/modal-drug-new.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,8 @@ import { ModalDrugNewComponent } from './modals/modal-drug-new/modal-drug-new.co
     CommonModule,
     NgZorroModule,
     SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
     DrugsRoutingModule,
   ]
 })

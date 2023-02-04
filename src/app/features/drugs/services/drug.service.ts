@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios, { AxiosResponse } from 'axios';
 import { environment } from '../../../../environments/environment';
+import { ICreateDrug, IUpdateDrug } from '../../../core/model/drug';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,14 @@ export class DrugService {
   remove(code: any): Promise<AxiosResponse> {
     const url = `/${code}/delete`
     return this.axiosInstance.delete(url)
+  }
+
+  async save(drug: ICreateDrug): Promise<AxiosResponse> {
+    return await this.axiosInstance.post('/new', drug)
+  }
+
+  async update(code: any, drug: IUpdateDrug): Promise<AxiosResponse> {
+    return await this.axiosInstance.put(`/${code}/update`, drug)
   }
 
 }
