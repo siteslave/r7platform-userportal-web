@@ -45,10 +45,11 @@
           <td>{{data.updated_at}}</td>
           <td style="text-align: center;">
             <nz-button-group>
-              <button nz-button nzType="default" nzTooltipTitle="แก้ไข"><span nz-icon nzType="edit"></span></button>
-              <button nz-button nzType="default" nzTooltipTitle="Mapping"><span nz-icon
-                  nzType="apartment"></span></button>
-              <button nz-button nzType="default"><span nz-icon nzType="delete" nzTooltipTitle="ยกเลิก"></span></button>
+              <button nz-button nzType="default"><span nz-icon nzType="edit"></span></button>
+              <button nz-button nzType="default"><span nz-icon nzType="apartment"></span></button>
+              <button nz-button nzType="default" nz-popconfirm nzPopconfirmTitle="ลบรายการ ใช่หรือไม่?" nzOkText="ใช่"
+                nzCancelText="ไม่ใช่" (nzOnConfirm)="confirmRemove()" (nzOnCancel)="cancelRemove()"><span nz-icon
+                  nzType="delete"></span></button>
             </nz-button-group>
           </td>
         </tr>

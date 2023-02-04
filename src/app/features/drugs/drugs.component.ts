@@ -115,4 +115,7 @@ export class DrugsComponent {
     }
   }
 
+  confirmRemove() { }
+
+  cancelRemove() { }
 }
