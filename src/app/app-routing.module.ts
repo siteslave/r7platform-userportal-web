@@ -26,16 +26,14 @@ const routes: Routes = [
         path: 'users',
         loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule)
       },
-      {
-        path: 'hospitals',
-        loadChildren: () => import('./features/hospitals/hospitals.module').then(m => m.HospitalsModule)
-      },
+      { path: 'drug-usages', loadChildren: () => import('./features/drug-usages/drug-usages.module').then(m => m.DrugUsagesModule) },
     ]
   },
   {
     path: 'not-found',
     loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule)
   },
+
 
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
 ];
