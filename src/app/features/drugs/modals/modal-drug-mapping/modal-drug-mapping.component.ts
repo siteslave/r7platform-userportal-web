@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { IDrug, IMappingDrug } from '../../../../core/model/drug';
+import { IDrug, IDrugMapping } from '../../../../core/@types/drug';
 import { DrugService } from '../../services/drug.service';
 
 @Component({
@@ -56,7 +56,7 @@ export class ModalDrugMappingComponent {
     this.isVisible = true
   }
 
-  async doMapping(drug: IMappingDrug) {
+  async doMapping(drug: IDrugMapping) {
     this.isOkLoading = true
     const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId
     try {
@@ -74,7 +74,7 @@ export class ModalDrugMappingComponent {
 
   handleOk(): void {
     if (this.validateForm.valid) {
-      let mapping: IMappingDrug = {
+      let mapping: IDrugMapping = {
         code: this.code,
         f43: this.validateForm.value.f43,
         tmt: this.validateForm.value.tmt,

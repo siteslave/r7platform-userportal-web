@@ -7,14 +7,14 @@ export interface IDrugUsage {
   updated_at: string
 }
 
-export interface ICreateDrugUsage {
+export interface IDrugUsageCreate {
   code: string
   usage1: string
   usage2: string
   usage3: string
 }
 
-export interface IUpdateDrugUsage {
+export interface IDrugUsageUpdate {
   usage1: string
   usage2: string
   usage3: string

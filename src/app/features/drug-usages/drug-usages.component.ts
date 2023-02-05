@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 import { environment } from '../../../environments/environment';
-import { IDrugUsage } from '../../core/model/drug_usage';
+import { IDrugUsage } from '../../core/@types/drug_usage';
 import { ModalSearchComponent } from '../../shared/modals/modal-search/modal-search.component';
 import { ModalDrugUsageNewComponent } from './modals/modal-drug-usage-new/modal-drug-usage-new.component';
 import { DrugUsageService } from './servies/drug-usage.service';

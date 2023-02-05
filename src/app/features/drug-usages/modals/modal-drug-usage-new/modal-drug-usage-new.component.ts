@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { ICreateDrugUsage, IDrugUsage, IUpdateDrugUsage } from '../../../../core/model/drug_usage';
+import { IDrugUsageCreate, IDrugUsage, IDrugUsageUpdate } from '../../../../core/@types/drug_usage';
 import { DrugUsageService } from '../../servies/drug-usage.service';
 
 @Component({
@@ -54,7 +54,7 @@ export class ModalDrugUsageNewComponent {
     this.isVisible = true
   }
 
-  async doRegister(drug: ICreateDrugUsage) {
+  async doRegister(drug: IDrugUsageCreate) {
     this.isOkLoading = true
     const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId
     try {
@@ -70,7 +70,7 @@ export class ModalDrugUsageNewComponent {
     }
   }
 
-  async doUpdate(drug: IUpdateDrugUsage) {
+  async doUpdate(drug: IDrugUsageUpdate) {
     this.isOkLoading = true
     const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId
     try {
@@ -89,7 +89,7 @@ export class ModalDrugUsageNewComponent {
   handleOk(): void {
     if (this.validateForm.valid) {
       if (this.code) {
-        let drug: IUpdateDrugUsage = {
+        let drug: IDrugUsageUpdate = {
           usage1: this.validateForm.value.usage1,
           usage2: this.validateForm.value.usage2,
           usage3: this.validateForm.value.usage3
@@ -98,7 +98,7 @@ export class ModalDrugUsageNewComponent {
         this.doUpdate(drug)
 
       } else {
-        let drug: ICreateDrugUsage = {
+        let drug: IDrugUsageCreate = {
           code: this.validateForm.value.code,
           usage1: this.validateForm.value.usage1,
           usage2: this.validateForm.value.usage2,

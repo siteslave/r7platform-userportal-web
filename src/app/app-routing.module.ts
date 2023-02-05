@@ -22,18 +22,21 @@ const routes: Routes = [
         path: 'drugs',
         loadChildren: () => import('./features/drugs/drugs.module').then(m => m.DrugsModule)
       },
+      // {
+      //   path: 'users',
+      //   loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule)
+      // },
       {
-        path: 'users',
-        loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule)
+        path: 'drug-usages',
+        loadChildren: () => import('./features/drug-usages/drug-usages.module').then(m => m.DrugUsagesModule)
       },
-      { path: 'drug-usages', loadChildren: () => import('./features/drug-usages/drug-usages.module').then(m => m.DrugUsagesModule) },
     ]
   },
   {
     path: 'not-found',
     loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule)
   },
-
+  { path: 'labs', loadChildren: () => import('./features/labs/labs.module').then(m => m.LabsModule) },
 
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
 ];
