@@ -157,7 +157,7 @@ export class DrugUsagesComponent {
   }
 
   editItem(usage: IDrugUsage) {
-    this.mdlDrugUsagNew.showModal(usage)
+    this.mdlDrugUsagNew.showModalUpdate(usage)
   }
 
 }

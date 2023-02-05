@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { ICreateDrugUsage, IUpdateDrugUsage } from '../../../../core/model/drug_usage';
+import { ICreateDrugUsage, IDrugUsage, IUpdateDrugUsage } from '../../../../core/model/drug_usage';
 import { DrugUsageService } from '../../servies/drug-usage.service';
 
 @Component({
@@ -27,24 +27,30 @@ export class ModalDrugUsageNewComponent {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      name: [null, [Validators.required]],
+      usage1: [null, [Validators.required]],
+      usage2: [null, []],
+      usage3: [null, []],
       code: [null, [Validators.required]],
     })
   }
 
-  showModal(code: any = '', name: any = ''): void {
-
+  showModal(): void {
     this.validateForm.reset()
     this.validateForm.controls['code'].enable()
-    if (code) {
-      this.code = code
-      this.validateForm.patchValue({
-        name: name,
-        code: code
-      })
-      this.validateForm.controls['code'].disable()
-    }
+    this.isVisible = true
+  }
 
+  showModalUpdate(usage: IDrugUsage): void {
+
+    this.validateForm.reset()
+    this.validateForm.controls['code'].disable()
+    this.code = usage.code
+    this.validateForm.patchValue({
+      code: usage.code,
+      usage1: usage.usage1,
+      usage2: usage.usage2,
+      usage3: usage.usage3,
+    })
     this.isVisible = true
   }
 
