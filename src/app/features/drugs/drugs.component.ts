@@ -119,7 +119,7 @@ export class DrugsComponent {
       this.loading = false
       this.total = response.data.total || 1
 
-      this.datasets = response.data.results.map((v: any) => {
+      this.datasets = response.data.data.map((v: any) => {
         const created_at = DateTime.fromISO(v.created_at, { zone: "Asia/Bangkok", locale: 'th' })
         const updated_at = DateTime.fromISO(v.updated_at, { zone: "Asia/Bangkok", locale: 'th' })
         v.created_at = created_at.toLocaleString(DateTime.DATETIME_SHORT)
