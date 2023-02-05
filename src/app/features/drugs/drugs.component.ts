@@ -117,9 +117,10 @@ export class DrugsComponent {
       const response = await this.drugService.getList(this.query, _limit, _offset)
 
       this.loading = false
-      this.total = response.data.total || 1
+      const responseData: any = response.data
+      this.total = responseData.total || 1
 
-      this.datasets = response.data.data.map((v: any) => {
+      this.datasets = responseData.data.map((v: any) => {
         const created_at = DateTime.fromISO(v.created_at, { zone: "Asia/Bangkok", locale: 'th' })
         const updated_at = DateTime.fromISO(v.updated_at, { zone: "Asia/Bangkok", locale: 'th' })
         v.created_at = created_at.toLocaleString(DateTime.DATETIME_SHORT)
