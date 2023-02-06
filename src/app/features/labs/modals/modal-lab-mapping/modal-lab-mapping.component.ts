@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { IDrug, IDrugMapping } from '../../../../core/@types/drug';
-import { DrugService } from '../../services/drug.service';
+import { ILab, ILabMapping } from '../../../../core/@types/lab';
+import { LabService } from '../../services/lab.service';
 
 @Component({
-  selector: 'app-modal-drug-mapping',
-  templateUrl: './modal-drug-mapping.component.html',
-  styleUrls: ['./modal-drug-mapping.component.css']
+  selector: 'app-modal-lab-mapping',
+  templateUrl: './modal-lab-mapping.component.html',
+  styleUrls: ['./modal-lab-mapping.component.css']
 })
-export class ModalDrugMappingComponent {
+export class ModalLabMappingComponent {
 
   validateForm!: UntypedFormGroup
 
@@ -20,47 +20,47 @@ export class ModalDrugMappingComponent {
   code: any = ''
   name: any = ''
   f43: any = ''
-  tmt: any = ''
-  drugDetail: any = ''
+  loinc: any = ''
+  labDetail: any = ''
 
   constructor (
     private fb: UntypedFormBuilder,
     private message: NzMessageService,
-    private drugService: DrugService,
+    private labService: LabService,
   ) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       f43: [null, [Validators.required]],
-      tmt: [null, [Validators.required]],
-      drugDetail: [null, [Validators.required]],
+      loinc: [null, [Validators.required]],
+      labDetail: [null, [Validators.required]],
     })
   }
 
-  showModal(drug: IDrug): void {
+  showModal(lab: ILab): void {
 
     this.validateForm.reset()
-    this.code = drug.code
-    this.name = drug.name
+    this.code = lab.code
+    this.name = lab.name
 
-    this.drugDetail = `${this.code} - ${this.name}`
+    this.labDetail = `${this.code} - ${this.name}`
 
     this.validateForm.patchValue({
-      f43: drug.f43,
-      tmt: drug.tmt,
-      drugDetail: this.drugDetail
+      f43: lab.f43,
+      loinc: lab.loinc,
+      labDetail: this.labDetail
     })
 
-    this.validateForm.controls['drugDetail'].disable()
+    this.validateForm.controls['labDetail'].disable()
 
     this.isVisible = true
   }
 
-  async doMapping(drug: IDrugMapping) {
+  async doMapping(drug: ILabMapping) {
     this.isOkLoading = true
     const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId
     try {
-      await this.drugService.mapping(drug)
+      await this.labService.mapping(drug)
       this.message.remove(messageId)
       this.isOkLoading = false
       this.isVisible = false
@@ -74,10 +74,10 @@ export class ModalDrugMappingComponent {
 
   handleOk(): void {
     if (this.validateForm.valid) {
-      let mapping: IDrugMapping = {
+      let mapping: ILabMapping = {
         code: this.code,
         f43: this.validateForm.value.f43,
-        tmt: this.validateForm.value.tmt,
+        loinc: this.validateForm.value.loinc,
       }
 
       this.doMapping(mapping)
@@ -98,4 +98,5 @@ export class ModalDrugMappingComponent {
     this.isOkLoading = false
     this.isVisible = false
   }
+
 }

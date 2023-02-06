@@ -1,15 +1,16 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { IDrugUsageCreate, IDrugUsage, IDrugUsageUpdate } from '../../../../core/@types/drug_usage';
-import { DrugUsageService } from '../../servies/drug-usage.service';
+import { ILab, ILabCreate, ILabUpdate } from '../../../../core/@types/lab';
+import { LabGroupService } from '../../../lab-groups/services/lab-group.service';
+import { LabService } from '../../services/lab.service';
 
 @Component({
-  selector: 'app-modal-drug-usage-new',
-  templateUrl: './modal-drug-usage-new.component.html',
-  styleUrls: ['./modal-drug-usage-new.component.css']
+  selector: 'app-modal-lab-new',
+  templateUrl: './modal-lab-new.component.html',
+  styleUrls: ['./modal-lab-new.component.css']
 })
-export class ModalDrugUsageNewComponent {
+export class ModalLabNewComponent {
 
   validateForm!: UntypedFormGroup
 
@@ -18,19 +19,20 @@ export class ModalDrugUsageNewComponent {
   isOkLoading = false
   isVisible = false
   code: any = ''
+  groups: any[] = []
 
   constructor (
     private fb: UntypedFormBuilder,
     private message: NzMessageService,
-    private drugService: DrugUsageService,
+    private labService: LabService,
+    private labGroupService: LabGroupService
   ) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      usage1: [null, [Validators.required]],
-      usage2: [null, []],
-      usage3: [null, []],
       code: [null, [Validators.required]],
+      name: [null, [Validators.required]],
+      labGroupCode: [null, [Validators.required]],
     })
   }
 
@@ -38,27 +40,41 @@ export class ModalDrugUsageNewComponent {
     this.validateForm.reset()
     this.validateForm.controls['code'].enable()
     this.isVisible = true
+
+    this.getLabGroups()
   }
 
-  showModalUpdate(usage: IDrugUsage): void {
-
+  showModalUpdate(lab: ILab): void {
     this.validateForm.reset()
     this.validateForm.controls['code'].disable()
-    this.code = usage.code
+    this.code = lab.code
     this.validateForm.patchValue({
-      code: usage.code,
-      usage1: usage.usage1,
-      usage2: usage.usage2,
-      usage3: usage.usage3,
+      code: lab.code,
+      name: lab.name,
+      labGroupCode: lab.lab_group_code,
     })
     this.isVisible = true
+
+    this.getLabGroups()
   }
 
-  async doRegister(drug: IDrugUsageCreate) {
+  async getLabGroups() {
+    try {
+      const response = await this.labGroupService.getList('', 100, 0)
+
+      const responseData: any = response.data
+      this.groups = responseData.data
+
+    } catch (error: any) {
+      this.message.error(`Lab groups: ${error.code} - ${error.message}`)
+    }
+  }
+
+  async doRegister(lab: ILabCreate) {
     this.isOkLoading = true
     const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId
     try {
-      await this.drugService.save(drug)
+      await this.labService.save(lab)
       this.message.remove(messageId)
       this.isOkLoading = false
       this.isVisible = false
@@ -70,11 +86,11 @@ export class ModalDrugUsageNewComponent {
     }
   }
 
-  async doUpdate(drug: IDrugUsageUpdate) {
+  async doUpdate(lab: ILabUpdate) {
     this.isOkLoading = true
     const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId
     try {
-      await this.drugService.update(this.code, drug)
+      await this.labService.update(this.code, lab)
       this.message.remove(messageId)
       this.isOkLoading = false
       this.isVisible = false
@@ -89,23 +105,21 @@ export class ModalDrugUsageNewComponent {
   handleOk(): void {
     if (this.validateForm.valid) {
       if (this.code) {
-        let drug: IDrugUsageUpdate = {
-          usage1: this.validateForm.value.usage1,
-          usage2: this.validateForm.value.usage2,
-          usage3: this.validateForm.value.usage3
+        let lab: ILabUpdate = {
+          name: this.validateForm.value.name,
+          lab_group_code: this.validateForm.value.labGroupCode,
         }
 
-        this.doUpdate(drug)
+        this.doUpdate(lab)
 
       } else {
-        let drug: IDrugUsageCreate = {
+        let lab: ILabCreate = {
           code: this.validateForm.value.code,
-          usage1: this.validateForm.value.usage1,
-          usage2: this.validateForm.value.usage2,
-          usage3: this.validateForm.value.usage3
+          name: this.validateForm.value.name,
+          lab_group_code: this.validateForm.value.labGroupCode,
         }
 
-        this.doRegister(drug)
+        this.doRegister(lab)
 
       }
       return
@@ -125,5 +139,4 @@ export class ModalDrugUsageNewComponent {
     this.isOkLoading = false
     this.isVisible = false
   }
-
 }

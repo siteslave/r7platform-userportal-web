@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 import { environment } from '../../../environments/environment';
-import { IDrugUsage } from '../../core/model/drug_usage';
+import { IDrugUsage } from '../../core/@types/drug_usage';
 import { ModalSearchComponent } from '../../shared/modals/modal-search/modal-search.component';
 import { ModalDrugUsageNewComponent } from './modals/modal-drug-usage-new/modal-drug-usage-new.component';
 import { DrugUsageService } from './servies/drug-usage.service';
@@ -115,9 +115,11 @@ export class DrugUsagesComponent {
       const response = await this.drugUsageService.getList(this.query, _limit, _offset)
 
       this.loading = false
-      this.total = response.data.total || 1
 
-      this.datasets = response.data.results.map((v: any) => {
+      const responseData: any = response.data
+      this.total = responseData.total || 1
+
+      this.datasets = responseData.data.map((v: any) => {
         const created_at = DateTime.fromISO(v.created_at, { zone: "Asia/Bangkok", locale: 'th' })
         const updated_at = DateTime.fromISO(v.updated_at, { zone: "Asia/Bangkok", locale: 'th' })
         v.created_at = created_at.toLocaleString(DateTime.DATETIME_SHORT)

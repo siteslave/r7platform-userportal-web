@@ -7,16 +7,16 @@ export interface IDrug {
   updated_at: string
 }
 
-export interface ICreateDrug {
+export interface IDrugCreate {
   code: string
   name: string
 }
 
-export interface IUpdateDrug {
+export interface IDrugUpdate {
   name: string
 }
 
-export interface IMappingDrug {
+export interface IDrugMapping {
   code: string
   f43: string
   tmt: string

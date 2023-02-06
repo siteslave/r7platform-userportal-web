@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { IDrugUsageCreate, IDrugUsage, IDrugUsageUpdate } from '../../../../core/@types/drug_usage';
-import { DrugUsageService } from '../../servies/drug-usage.service';
+import { ILabGroup, ILabGroupCreate, ILabGroupUpdate } from '../../../../core/@types/lab_group';
+import { LabGroupService } from '../../services/lab-group.service';
 
 @Component({
-  selector: 'app-modal-drug-usage-new',
-  templateUrl: './modal-drug-usage-new.component.html',
-  styleUrls: ['./modal-drug-usage-new.component.css']
+  selector: 'app-modal-lab-group-new',
+  templateUrl: './modal-lab-group-new.component.html',
+  styleUrls: ['./modal-lab-group-new.component.css']
 })
-export class ModalDrugUsageNewComponent {
+export class ModalLabGroupNewComponent {
 
   validateForm!: UntypedFormGroup
 
@@ -22,43 +22,40 @@ export class ModalDrugUsageNewComponent {
   constructor (
     private fb: UntypedFormBuilder,
     private message: NzMessageService,
-    private drugService: DrugUsageService,
+    private labGroupService: LabGroupService,
   ) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      usage1: [null, [Validators.required]],
-      usage2: [null, []],
-      usage3: [null, []],
       code: [null, [Validators.required]],
+      name: [null, [Validators.required]],
     })
   }
 
   showModal(): void {
+    this.code = null
     this.validateForm.reset()
     this.validateForm.controls['code'].enable()
     this.isVisible = true
   }
 
-  showModalUpdate(usage: IDrugUsage): void {
+  showModalUpdate(group: ILabGroup): void {
 
     this.validateForm.reset()
     this.validateForm.controls['code'].disable()
-    this.code = usage.code
+    this.code = group.code
     this.validateForm.patchValue({
-      code: usage.code,
-      usage1: usage.usage1,
-      usage2: usage.usage2,
-      usage3: usage.usage3,
+      code: group.code,
+      name: group.name
     })
     this.isVisible = true
   }
 
-  async doRegister(drug: IDrugUsageCreate) {
+  async doRegister(drug: ILabGroupCreate) {
     this.isOkLoading = true
     const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId
     try {
-      await this.drugService.save(drug)
+      await this.labGroupService.save(drug)
       this.message.remove(messageId)
       this.isOkLoading = false
       this.isVisible = false
@@ -70,11 +67,11 @@ export class ModalDrugUsageNewComponent {
     }
   }
 
-  async doUpdate(drug: IDrugUsageUpdate) {
+  async doUpdate(drug: ILabGroupUpdate) {
     this.isOkLoading = true
     const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId
     try {
-      await this.drugService.update(this.code, drug)
+      await this.labGroupService.update(this.code, drug)
       this.message.remove(messageId)
       this.isOkLoading = false
       this.isVisible = false
@@ -89,23 +86,19 @@ export class ModalDrugUsageNewComponent {
   handleOk(): void {
     if (this.validateForm.valid) {
       if (this.code) {
-        let drug: IDrugUsageUpdate = {
-          usage1: this.validateForm.value.usage1,
-          usage2: this.validateForm.value.usage2,
-          usage3: this.validateForm.value.usage3
+        let group: ILabGroupUpdate = {
+          name: this.validateForm.value.name
         }
 
-        this.doUpdate(drug)
+        this.doUpdate(group)
 
       } else {
-        let drug: IDrugUsageCreate = {
+        let group: ILabGroupCreate = {
           code: this.validateForm.value.code,
-          usage1: this.validateForm.value.usage1,
-          usage2: this.validateForm.value.usage2,
-          usage3: this.validateForm.value.usage3
+          name: this.validateForm.value.name
         }
 
-        this.doRegister(drug)
+        this.doRegister(group)
 
       }
       return
@@ -124,6 +117,7 @@ export class ModalDrugUsageNewComponent {
     this.validateForm.reset()
     this.isOkLoading = false
     this.isVisible = false
+    this.code = null
   }
 
 }

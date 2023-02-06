@@ -1,27 +1,25 @@
-import { Component, ViewChild } from '@angular/core'
-import { Router } from '@angular/router'
-import { DateTime } from 'luxon'
-import { NzMessageService } from 'ng-zorro-antd/message'
-import { NzUploadChangeParam } from 'ng-zorro-antd/upload'
-import { environment } from '../../../environments/environment'
-import { IDrug } from '../../core/@types/drug'
-import { ModalSearchComponent } from '../../shared/modals/modal-search/modal-search.component'
-import { ModalDrugMappingComponent } from './modals/modal-drug-mapping/modal-drug-mapping.component'
-import { ModalDrugNewComponent } from './modals/modal-drug-new/modal-drug-new.component'
-import { DrugService } from './services/drug.service'
+import { Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { DateTime } from 'luxon';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
+import { environment } from '../../../environments/environment';
+import { ILabGroup } from '../../core/@types/lab_group';
+import { ModalSearchComponent } from '../../shared/modals/modal-search/modal-search.component';
+import { ModalLabGroupNewComponent } from './modals/modal-lab-group-new/modal-lab-group-new.component';
+import { LabGroupService } from './services/lab-group.service';
 
 @Component({
-  selector: 'app-drugs',
-  templateUrl: './drugs.component.html',
-  styleUrls: ['./drugs.component.css']
+  selector: 'app-lab-groups',
+  templateUrl: './lab-groups.component.html',
+  styleUrls: ['./lab-groups.component.css']
 })
-export class DrugsComponent {
+export class LabGroupsComponent {
 
   @ViewChild('mdlSearch') private mdlSearch!: ModalSearchComponent;
-  @ViewChild('mdlDrugNew') private mdlDrugNew!: ModalDrugNewComponent;
-  @ViewChild('mdlDrugMapping') private mdlDrugMapping!: ModalDrugMappingComponent;
+  @ViewChild('mdlNew') private mdlNew!: ModalLabGroupNewComponent;
 
-  datasets: IDrug[] = []
+  datasets: ILabGroup[] = []
   query: any = ''
   uploadUrl: any = ''
   uploadHeader: any = ''
@@ -34,16 +32,16 @@ export class DrugsComponent {
 
   constructor (
     private router: Router,
-    private drugService: DrugService,
+    private labGroupService: LabGroupService,
     private message: NzMessageService
   ) {
     const token = sessionStorage.getItem('token')
     this.uploadHeader = { authorization: 'Bearer ' + token }
-    this.uploadUrl = `${environment.apiUrl}/libs/drugs/upload`
+    this.uploadUrl = `${environment.apiUrl}/libs/lab-groups/upload`
   }
 
   ngOnInit() {
-    this.getDrugs()
+    this.getItems()
   }
 
   onBack(): void {
@@ -55,7 +53,7 @@ export class DrugsComponent {
     this.offset = pageIndex === 1 ?
       (pageIndex * this.pageSize) : (pageIndex - 1) * this.pageSize;
 
-    this.getDrugs()
+    this.getItems()
   }
 
   onPageSizeChange(pageSize: any) {
@@ -64,34 +62,34 @@ export class DrugsComponent {
 
     this.offset = 0
 
-    this.getDrugs()
+    this.getItems()
   }
 
   onSearchSubmit(query: any) {
     if (query) {
       this.query = query
-      this.getDrugs()
+      this.getItems()
     }
   }
 
   onAddSubmit(saved: boolean) {
     if (saved) {
       this.message.success('ดำเนินการเสร็จเรียบร้อย')
-      this.getDrugs()
+      this.getItems()
     }
   }
 
   onMappingSubmit(saved: boolean) {
     if (saved) {
       this.message.success('ดำเนินการเสร็จเรียบร้อย')
-      this.getDrugs()
+      this.getItems()
     }
   }
 
   handleChange(info: NzUploadChangeParam): void {
     if (info.file.status === 'done') {
       this.message.success(`${info.file.name} file uploaded successfully`)
-      this.getDrugs()
+      this.getItems()
     } else if (info.file.status === 'error') {
       this.message.error(`${info.file.name} file upload failed.`)
     }
@@ -105,18 +103,19 @@ export class DrugsComponent {
     this.query = ''
     this.pageIndex = 1
     this.offset = 0
-    this.getDrugs()
+    this.getItems()
   }
 
-  async getDrugs() {
+  async getItems() {
     this.loading = true
     try {
       const _limit = this.pageSize
       const _offset = this.offset
 
-      const response = await this.drugService.getList(this.query, _limit, _offset)
+      const response = await this.labGroupService.getList(this.query, _limit, _offset)
 
       this.loading = false
+
       const responseData: any = response.data
       this.total = responseData.total || 1
 
@@ -134,13 +133,13 @@ export class DrugsComponent {
     }
   }
 
-  async removeDrug(code: any) {
+  async removeItem(code: any) {
     this.loading = true
     try {
-      await this.drugService.remove(code)
+      await this.labGroupService.remove(code)
       this.loading = false
       this.message.success('ดำเนินการเสร็จเรียบร้อย')
-      this.getDrugs()
+      this.getItems()
     } catch (error: any) {
       this.loading = false
       this.message.error(`${error.code} - ${error.message}`)
@@ -149,21 +148,18 @@ export class DrugsComponent {
 
   confirmRemove(code: any) {
     if (code) {
-      this.removeDrug(code)
+      this.removeItem(code)
     }
   }
 
   cancelRemove() { }
 
   addItem() {
-    this.mdlDrugNew.showModal()
+    this.mdlNew.showModal()
   }
 
-  editItem(code: any, name: any) {
-    this.mdlDrugNew.showModal(code, name)
+  editItem(group: ILabGroup) {
+    this.mdlNew.showModalUpdate(group)
   }
 
-  showMapping(drug: IDrug) {
-    this.mdlDrugMapping.showModal(drug)
-  }
 }

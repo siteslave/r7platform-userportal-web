@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import axios, { AxiosResponse } from 'axios';
 import { environment } from '../../../../environments/environment';
-import { ICreateDrugUsage, IUpdateDrugUsage } from '../../../core/model/drug_usage';
+import { IDrugUsageCreate, IDrugUsageUpdate } from '../../../core/@types/drug_usage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DrugUsageService {
-
 
   private axiosInstance = axios.create({
     baseURL: `${environment.apiUrl}/libs/drug-usages`
@@ -39,11 +38,11 @@ export class DrugUsageService {
     return this.axiosInstance.delete(url)
   }
 
-  save(usage: ICreateDrugUsage): Promise<AxiosResponse> {
+  save(usage: IDrugUsageCreate): Promise<AxiosResponse> {
     return this.axiosInstance.post('/new', usage)
   }
 
-  update(code: any, drug: IUpdateDrugUsage): Promise<AxiosResponse> {
+  update(code: any, drug: IDrugUsageUpdate): Promise<AxiosResponse> {
     return this.axiosInstance.put(`/${code}/update`, drug)
   }
 

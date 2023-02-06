@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import axios, { AxiosResponse } from 'axios';
 import { environment } from '../../../../environments/environment';
-import { IDrugCreate, IDrugMapping, IDrugUpdate } from '../../../core/@types/drug';
+import { ILabCreate, ILabMapping, ILabUpdate } from '../../../core/@types/lab';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DrugService {
+export class LabService {
 
   private axiosInstance = axios.create({
-    baseURL: `${environment.apiUrl}/libs/drugs`
+    baseURL: `${environment.apiUrl}/libs/labs`
   })
 
   constructor () {
@@ -38,16 +38,15 @@ export class DrugService {
     return this.axiosInstance.delete(url)
   }
 
-  async save(drug: IDrugCreate): Promise<AxiosResponse> {
-    return await this.axiosInstance.post('/new', drug)
+  save(usage: ILabCreate): Promise<AxiosResponse> {
+    return this.axiosInstance.post('/new', usage)
   }
 
-  async update(code: any, drug: IDrugUpdate): Promise<AxiosResponse> {
-    return await this.axiosInstance.put(`/${code}/update`, drug)
+  update(code: any, lab: ILabUpdate): Promise<AxiosResponse> {
+    return this.axiosInstance.put(`/${code}/update`, lab)
   }
 
-  async mapping(mapping: IDrugMapping): Promise<AxiosResponse> {
-    return await this.axiosInstance.post(`/mapping`, mapping)
+  mapping(lab: ILabMapping): Promise<AxiosResponse> {
+    return this.axiosInstance.post(`/mapping`, lab)
   }
-
 }
