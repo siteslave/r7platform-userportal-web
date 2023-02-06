@@ -36,6 +36,8 @@ export class ModalDrugNewComponent {
 
     this.validateForm.reset()
     this.validateForm.controls['code'].enable()
+    this.code = null
+
     if (code) {
       this.code = code
       this.validateForm.patchValue({
@@ -113,6 +115,7 @@ export class ModalDrugNewComponent {
   handleCancel(): void {
     this.validateForm.reset()
     this.isOkLoading = false
+    this.code = null
     this.isVisible = false
   }
 
