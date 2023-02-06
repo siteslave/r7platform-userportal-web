@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import axios, { AxiosResponse } from 'axios';
 import { environment } from '../../../../environments/environment';
-import { IDrugUsageCreate, IDrugUsageUpdate } from '../../../core/@types/drug_usage';
+import { ILabCreate, ILabMapping, ILabUpdate } from '../../../core/@types/lab';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DrugUsageService {
+export class LabService {
 
   private axiosInstance = axios.create({
-    baseURL: `${environment.apiUrl}/libs/drug-usages`
+    baseURL: `${environment.apiUrl}/libs/labs`
   })
 
   constructor () {
@@ -38,12 +38,15 @@ export class DrugUsageService {
     return this.axiosInstance.delete(url)
   }
 
-  save(usage: IDrugUsageCreate): Promise<AxiosResponse> {
+  save(usage: ILabCreate): Promise<AxiosResponse> {
     return this.axiosInstance.post('/new', usage)
   }
 
-  update(code: any, drug: IDrugUsageUpdate): Promise<AxiosResponse> {
-    return this.axiosInstance.put(`/${code}/update`, drug)
+  update(code: any, lab: ILabUpdate): Promise<AxiosResponse> {
+    return this.axiosInstance.put(`/${code}/update`, lab)
   }
 
+  mapping(lab: ILabMapping): Promise<AxiosResponse> {
+    return this.axiosInstance.post(`/mapping`, lab)
+  }
 }

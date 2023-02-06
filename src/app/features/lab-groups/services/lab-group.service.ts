@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import axios, { AxiosResponse } from 'axios';
 import { environment } from '../../../../environments/environment';
-import { IDrugUsageCreate, IDrugUsageUpdate } from '../../../core/@types/drug_usage';
+import { ILabGroupCreate, ILabGroupUpdate } from '../../../core/@types/lab_group';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DrugUsageService {
+export class LabGroupService {
 
   private axiosInstance = axios.create({
-    baseURL: `${environment.apiUrl}/libs/drug-usages`
+    baseURL: `${environment.apiUrl}/libs/lab-groups`
   })
 
   constructor () {
@@ -38,11 +38,11 @@ export class DrugUsageService {
     return this.axiosInstance.delete(url)
   }
 
-  save(usage: IDrugUsageCreate): Promise<AxiosResponse> {
+  save(usage: ILabGroupCreate): Promise<AxiosResponse> {
     return this.axiosInstance.post('/new', usage)
   }
 
-  update(code: any, drug: IDrugUsageUpdate): Promise<AxiosResponse> {
+  update(code: any, drug: ILabGroupUpdate): Promise<AxiosResponse> {
     return this.axiosInstance.put(`/${code}/update`, drug)
   }
 

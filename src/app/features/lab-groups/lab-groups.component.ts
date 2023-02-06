@@ -4,24 +4,22 @@ import { DateTime } from 'luxon';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 import { environment } from '../../../environments/environment';
-import { ILab } from '../../core/@types/lab';
+import { ILabGroup } from '../../core/@types/lab_group';
 import { ModalSearchComponent } from '../../shared/modals/modal-search/modal-search.component';
-import { ModalLabMappingComponent } from './modals/modal-lab-mapping/modal-lab-mapping.component';
-import { ModalLabNewComponent } from './modals/modal-lab-new/modal-lab-new.component';
-import { LabService } from './services/lab.service';
+import { ModalLabGroupNewComponent } from './modals/modal-lab-group-new/modal-lab-group-new.component';
+import { LabGroupService } from './services/lab-group.service';
 
 @Component({
-  selector: 'app-labs',
-  templateUrl: './labs.component.html',
-  styleUrls: ['./labs.component.css']
+  selector: 'app-lab-groups',
+  templateUrl: './lab-groups.component.html',
+  styleUrls: ['./lab-groups.component.css']
 })
-export class LabsComponent {
+export class LabGroupsComponent {
 
   @ViewChild('mdlSearch') private mdlSearch!: ModalSearchComponent;
-  @ViewChild('mdlNew') private mdlNew!: ModalLabNewComponent;
-  @ViewChild('mdlMapping') private mdlMapping!: ModalLabMappingComponent;
+  @ViewChild('mdlNew') private mdlNew!: ModalLabGroupNewComponent;
 
-  datasets: ILab[] = []
+  datasets: ILabGroup[] = []
   query: any = ''
   uploadUrl: any = ''
   uploadHeader: any = ''
@@ -34,12 +32,12 @@ export class LabsComponent {
 
   constructor (
     private router: Router,
-    private labService: LabService,
+    private labGroupService: LabGroupService,
     private message: NzMessageService
   ) {
     const token = sessionStorage.getItem('token')
     this.uploadHeader = { authorization: 'Bearer ' + token }
-    this.uploadUrl = `${environment.apiUrl}/libs/labs/upload`
+    this.uploadUrl = `${environment.apiUrl}/libs/lab-groups/upload`
   }
 
   ngOnInit() {
@@ -51,6 +49,7 @@ export class LabsComponent {
   }
 
   onPageIndexChange(pageIndex: any) {
+
     this.offset = pageIndex === 1 ?
       (pageIndex * this.pageSize) : (pageIndex - 1) * this.pageSize;
 
@@ -60,6 +59,7 @@ export class LabsComponent {
   onPageSizeChange(pageSize: any) {
     this.pageSize = pageSize
     this.pageIndex = 1
+
     this.offset = 0
 
     this.getItems()
@@ -112,7 +112,7 @@ export class LabsComponent {
       const _limit = this.pageSize
       const _offset = this.offset
 
-      const response = await this.labService.getList(this.query, _limit, _offset)
+      const response = await this.labGroupService.getList(this.query, _limit, _offset)
 
       this.loading = false
 
@@ -136,7 +136,7 @@ export class LabsComponent {
   async removeItem(code: any) {
     this.loading = true
     try {
-      await this.labService.remove(code)
+      await this.labGroupService.remove(code)
       this.loading = false
       this.message.success('ดำเนินการเสร็จเรียบร้อย')
       this.getItems()
@@ -158,12 +158,8 @@ export class LabsComponent {
     this.mdlNew.showModal()
   }
 
-  editItem(lab: ILab) {
-    this.mdlNew.showModalUpdate(lab)
-  }
-
-  showMapping(lab: ILab) {
-    this.mdlMapping.showModal(lab)
+  editItem(group: ILabGroup) {
+    this.mdlNew.showModalUpdate(group)
   }
 
 }
