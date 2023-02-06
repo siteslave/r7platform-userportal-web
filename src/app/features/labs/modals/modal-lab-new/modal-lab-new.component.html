@@ -17,7 +17,8 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzFor="labGroupCode">กลุ่ม</nz-form-label>
         <nz-form-control [nzSpan]="14" nzErrorTip="เลือกกลุ่ม">
-          <nz-select style="width: 100%;" formControlName="labGroupCode" id="labGroupCode" name="labGroupCode">
+          <nz-select nzShowSearch nzAllowClear style="width: 100%;" formControlName="labGroupCode" id="labGroupCode"
+            name="labGroupCode">
             <nz-option *ngFor="let group of groups" [nzValue]="group.code" [nzLabel]="group.name"></nz-option>
           </nz-select>
         </nz-form-control>
