@@ -37,11 +37,11 @@ export class ModalDrugUsageNewComponent {
   showModal(): void {
     this.validateForm.reset()
     this.validateForm.controls['code'].enable()
+    this.code = null
     this.isVisible = true
   }
 
   showModalUpdate(usage: IDrugUsage): void {
-
     this.validateForm.reset()
     this.validateForm.controls['code'].disable()
     this.code = usage.code
@@ -123,6 +123,7 @@ export class ModalDrugUsageNewComponent {
   handleCancel(): void {
     this.validateForm.reset()
     this.isOkLoading = false
+    this.code = null
     this.isVisible = false
   }
 
