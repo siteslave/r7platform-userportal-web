@@ -19,8 +19,8 @@ import { ModalOccupationMappingComponent } from './modals/modal-occupation-mappi
 export class OccupationsComponent implements OnInit {
 
   @ViewChild('mdlSearch') private mdlSearch!: ModalSearchComponent;
-  @ViewChild('mdlOccupationNew') private mdlOccupationNew!: ModalOccupationNewComponent;
-  @ViewChild('mdlOcupationMapping') private mdlOcupationMapping!: ModalOccupationMappingComponent;
+  @ViewChild('mdlNew') private mdlNew!: ModalOccupationNewComponent;
+  @ViewChild('mdlMapping') private mdlMapping!: ModalOccupationMappingComponent;
 
   datasets: IOccupation[] = []
   query: any = ''
@@ -164,15 +164,15 @@ export class OccupationsComponent implements OnInit {
   cancelRemove() { }
 
   addItem() {
-    this.mdlOccupationNew.showModal()
+    this.mdlNew.showModal()
   }
 
   editItem(code: any, name: any) {
-    this.mdlOccupationNew.showModal(code, name)
+    this.mdlNew.showModal(code, name)
   }
 
   showMapping(occupation: IOccupation) {
-    this.mdlOcupationMapping.showModal(occupation)
+    this.mdlMapping.showModal(occupation)
   }
 
 }

@@ -25,7 +25,8 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
-
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
 @NgModule({
   declarations: [],
   imports: [
@@ -53,7 +54,9 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
     NzUploadModule,
     NzPaginationModule,
     NzPopconfirmModule,
-    NzTypographyModule
+    NzTypographyModule,
+    NzDatePickerModule,
+    NzTabsModule
   ],
   exports: [
     NzFormModule,
@@ -79,7 +82,9 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
     NzUploadModule,
     NzPaginationModule,
     NzPopconfirmModule,
-    NzTypographyModule
+    NzTypographyModule,
+    NzDatePickerModule,
+    NzTabsModule
   ]
 })
 export class NgZorroModule { }

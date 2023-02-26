@@ -61,6 +61,7 @@ const routes: Routes = [
     loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule)
   },
 
+  { path: 'dashboard', redirectTo: 'drugs', pathMatch: 'full' },
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
 ];
 

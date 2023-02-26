@@ -51,11 +51,11 @@ export class ModalNationNewComponent {
     this.isVisible = true
   }
 
-  async doRegister(drug: INationCreate) {
+  async doRegister(item: INationCreate) {
     this.isOkLoading = true
     const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId
     try {
-      await this.nationService.save(drug)
+      await this.nationService.save(item)
       this.message.remove(messageId)
       this.isOkLoading = false
       this.isVisible = false
@@ -67,11 +67,11 @@ export class ModalNationNewComponent {
     }
   }
 
-  async doUpdate(drug: INationUpdate) {
+  async doUpdate(item: INationUpdate) {
     this.isOkLoading = true
     const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId
     try {
-      await this.nationService.update(this.code, drug)
+      await this.nationService.update(this.code, item)
       this.message.remove(messageId)
       this.isOkLoading = false
       this.isVisible = false
@@ -86,19 +86,19 @@ export class ModalNationNewComponent {
   handleOk(): void {
     if (this.validateForm.valid) {
       if (this.code) {
-        let drug: INationUpdate = {
+        let item: INationUpdate = {
           name: this.validateForm.value.name
         }
 
-        this.doUpdate(drug)
+        this.doUpdate(item)
 
       } else {
-        let drug: INationCreate = {
+        let item: INationCreate = {
           code: this.validateForm.value.code,
           name: this.validateForm.value.name,
         }
 
-        this.doRegister(drug)
+        this.doRegister(item)
 
       }
       return
