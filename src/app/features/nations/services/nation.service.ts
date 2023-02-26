@@ -1,19 +1,18 @@
 import { Inject, Injectable } from '@angular/core';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { environment } from '../../../../environments/environment';
-import { IDrugCreate, IDrugMapping, IDrugUpdate } from '../../../core/@types/drug';
+import { INationCreate, INationMapping, INationUpdate } from '../../../core/@types/nation';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DrugService {
+export class NationService {
 
   private axiosInstance!: AxiosInstance;
 
   constructor (@Inject('API_URL') private apiUrl: any) {
 
     this.axiosInstance = axios.create({
-      baseURL: `${this.apiUrl}/libs/drugs`
+      baseURL: `${this.apiUrl}/libs/nations`
     })
 
     this.axiosInstance.interceptors.request.use(config => {
@@ -41,15 +40,15 @@ export class DrugService {
     return this.axiosInstance.delete(url)
   }
 
-  async save(drug: IDrugCreate): Promise<AxiosResponse> {
+  async save(drug: INationCreate): Promise<AxiosResponse> {
     return await this.axiosInstance.post('/new', drug)
   }
 
-  async update(code: any, drug: IDrugUpdate): Promise<AxiosResponse> {
+  async update(code: any, drug: INationUpdate): Promise<AxiosResponse> {
     return await this.axiosInstance.put(`/${code}/update`, drug)
   }
 
-  async mapping(mapping: IDrugMapping): Promise<AxiosResponse> {
+  async mapping(mapping: INationMapping): Promise<AxiosResponse> {
     return await this.axiosInstance.post(`/mapping`, mapping)
   }
 

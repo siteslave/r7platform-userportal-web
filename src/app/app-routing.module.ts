@@ -22,10 +22,6 @@ const routes: Routes = [
         path: 'drugs',
         loadChildren: () => import('./features/drugs/drugs.module').then(m => m.DrugsModule)
       },
-      // {
-      //   path: 'users',
-      //   loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule)
-      // },
       {
         path: 'drug-usages',
         loadChildren: () => import('./features/drug-usages/drug-usages.module').then(m => m.DrugUsagesModule)
@@ -38,6 +34,26 @@ const routes: Routes = [
         path: 'lab-groups',
         loadChildren: () => import('./features/lab-groups/lab-groups.module').then(m => m.LabGroupsModule)
       },
+      {
+        path: 'occupations',
+        loadChildren: () => import('./features/occupations/occupations.module').then(m => m.OccupationsModule)
+      },
+      {
+        path: 'insurances',
+        loadChildren: () => import('./features/insurances/insurances.module').then(m => m.InsurancesModule)
+      },
+      {
+        path: 'providers',
+        loadChildren: () => import('./features/providers/providers.module').then(m => m.ProvidersModule)
+      },
+      {
+        path: 'nations',
+        loadChildren: () => import('./features/nations/nations.module').then(m => m.NationsModule)
+      },
+      {
+        path: 'tables',
+        loadChildren: () => import('./features/tables/tables.module').then(m => m.TablesModule)
+      },
     ]
   },
   {
@@ -45,6 +61,7 @@ const routes: Routes = [
     loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule)
   },
 
+  { path: 'dashboard', redirectTo: 'drugs', pathMatch: 'full' },
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
 ];
 
