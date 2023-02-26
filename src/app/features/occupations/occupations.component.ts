@@ -42,7 +42,7 @@ export class OccupationsComponent {
   ) {
     const token = sessionStorage.getItem('token')
     this.uploadHeader = { authorization: 'Bearer ' + token }
-    this.uploadUrl = `${this.apiUrl}/libs/drugs/upload`
+    this.uploadUrl = `${this.apiUrl}/libs/occupations/upload`
   }
 
   ngOnInit() {
