@@ -1,17 +1,16 @@
-import { NzMessageService } from 'ng-zorro-antd/message';
-
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Output, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { INationCreate, INationUpdate } from '../../../../core/@types/nation';
+import { NationService } from '../../services/nation.service';
 
-import { IDrugCreate, IDrugUpdate } from '../../../../core/@types/drug';
-import { DrugService } from '../../services/drug.service';
 
 @Component({
-  selector: 'app-modal-drug-new',
-  templateUrl: './modal-drug-new.component.html',
-  styleUrls: ['./modal-drug-new.component.css']
+  selector: 'app-modal-nation-new',
+  templateUrl: './modal-nation-new.component.html',
+  styleUrls: ['./modal-nation-new.component.css']
 })
-export class ModalDrugNewComponent {
+export class ModalNationNewComponent {
 
   validateForm!: UntypedFormGroup
 
@@ -24,7 +23,7 @@ export class ModalDrugNewComponent {
   constructor (
     private fb: UntypedFormBuilder,
     private message: NzMessageService,
-    private drugService: DrugService,
+    private nationService: NationService,
   ) { }
 
   ngOnInit(): void {
@@ -52,11 +51,11 @@ export class ModalDrugNewComponent {
     this.isVisible = true
   }
 
-  async doRegister(drug: IDrugCreate) {
+  async doRegister(drug: INationCreate) {
     this.isOkLoading = true
     const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId
     try {
-      await this.drugService.save(drug)
+      await this.nationService.save(drug)
       this.message.remove(messageId)
       this.isOkLoading = false
       this.isVisible = false
@@ -68,11 +67,11 @@ export class ModalDrugNewComponent {
     }
   }
 
-  async doUpdate(drug: IDrugUpdate) {
+  async doUpdate(drug: INationUpdate) {
     this.isOkLoading = true
     const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId
     try {
-      await this.drugService.update(this.code, drug)
+      await this.nationService.update(this.code, drug)
       this.message.remove(messageId)
       this.isOkLoading = false
       this.isVisible = false
@@ -87,14 +86,14 @@ export class ModalDrugNewComponent {
   handleOk(): void {
     if (this.validateForm.valid) {
       if (this.code) {
-        let drug: IDrugUpdate = {
+        let drug: INationUpdate = {
           name: this.validateForm.value.name
         }
 
         this.doUpdate(drug)
 
       } else {
-        let drug: IDrugCreate = {
+        let drug: INationCreate = {
           code: this.validateForm.value.code,
           name: this.validateForm.value.name,
         }

@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { IOccupation } from '../../core/@types/occupation';
@@ -16,12 +16,11 @@ import { ModalOccupationMappingComponent } from './modals/modal-occupation-mappi
   templateUrl: './occupations.component.html',
   styleUrls: ['./occupations.component.css']
 })
-export class OccupationsComponent {
-
+export class OccupationsComponent implements OnInit {
 
   @ViewChild('mdlSearch') private mdlSearch!: ModalSearchComponent;
-  @ViewChild('mdlDrugNew') private mdlDrugNew!: ModalOccupationNewComponent;
-  @ViewChild('mdlDrugMapping') private mdlDrugMapping!: ModalOccupationMappingComponent;
+  @ViewChild('mdlOccupationNew') private mdlOccupationNew!: ModalOccupationNewComponent;
+  @ViewChild('mdlOcupationMapping') private mdlOcupationMapping!: ModalOccupationMappingComponent;
 
   datasets: IOccupation[] = []
   query: any = ''
@@ -46,7 +45,7 @@ export class OccupationsComponent {
   }
 
   ngOnInit() {
-    this.getDrugs()
+    this.getItems()
   }
 
   onBack(): void {
@@ -58,7 +57,7 @@ export class OccupationsComponent {
     this.offset = pageIndex === 1 ?
       (pageIndex * this.pageSize) : (pageIndex - 1) * this.pageSize;
 
-    this.getDrugs()
+    this.getItems()
   }
 
   onPageSizeChange(pageSize: any) {
@@ -67,34 +66,34 @@ export class OccupationsComponent {
 
     this.offset = 0
 
-    this.getDrugs()
+    this.getItems()
   }
 
   onSearchSubmit(query: any) {
     if (query) {
       this.query = query
-      this.getDrugs()
+      this.getItems()
     }
   }
 
   onAddSubmit(saved: boolean) {
     if (saved) {
       this.message.success('ดำเนินการเสร็จเรียบร้อย')
-      this.getDrugs()
+      this.getItems()
     }
   }
 
   onMappingSubmit(saved: boolean) {
     if (saved) {
       this.message.success('ดำเนินการเสร็จเรียบร้อย')
-      this.getDrugs()
+      this.getItems()
     }
   }
 
   handleChange(info: NzUploadChangeParam): void {
     if (info.file.status === 'done') {
       this.message.success(`${info.file.name} file uploaded successfully`)
-      this.getDrugs()
+      this.getItems()
     } else if (info.file.status === 'error') {
       this.message.error(`${info.file.name} file upload failed.`)
     }
@@ -108,10 +107,10 @@ export class OccupationsComponent {
     this.query = ''
     this.pageIndex = 1
     this.offset = 0
-    this.getDrugs()
+    this.getItems()
   }
 
-  async getDrugs() {
+  async getItems() {
     this.loading = true
     try {
       const _limit = this.pageSize
@@ -149,7 +148,7 @@ export class OccupationsComponent {
       await this.occupationService.remove(code)
       this.loading = false
       this.message.success('ดำเนินการเสร็จเรียบร้อย')
-      this.getDrugs()
+      this.getItems()
     } catch (error: any) {
       this.loading = false
       this.message.error(`${error.code} - ${error.message}`)
@@ -165,15 +164,15 @@ export class OccupationsComponent {
   cancelRemove() { }
 
   addItem() {
-    this.mdlDrugNew.showModal()
+    this.mdlOccupationNew.showModal()
   }
 
   editItem(code: any, name: any) {
-    this.mdlDrugNew.showModal(code, name)
+    this.mdlOccupationNew.showModal(code, name)
   }
 
   showMapping(occupation: IOccupation) {
-    this.mdlDrugMapping.showModal(occupation)
+    this.mdlOcupationMapping.showModal(occupation)
   }
 
 }

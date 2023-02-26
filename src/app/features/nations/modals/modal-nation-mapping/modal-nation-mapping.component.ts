@@ -1,17 +1,15 @@
-import { NzMessageService } from 'ng-zorro-antd/message';
-
 import { Component, EventEmitter, Output } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-
-import { IDrug, IDrugMapping } from '../../../../core/@types/drug';
-import { DrugService } from '../../services/drug.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { INation, INationMapping } from '../../../../core/@types/nation';
+import { NationService } from '../../services/nation.service';
 
 @Component({
-  selector: 'app-modal-drug-mapping',
-  templateUrl: './modal-drug-mapping.component.html',
-  styleUrls: ['./modal-drug-mapping.component.css']
+  selector: 'app-modal-nation-mapping',
+  templateUrl: './modal-nation-mapping.component.html',
+  styleUrls: ['./modal-nation-mapping.component.css']
 })
-export class ModalDrugMappingComponent {
+export class ModalNationMappingComponent {
 
   validateForm!: UntypedFormGroup
 
@@ -22,47 +20,47 @@ export class ModalDrugMappingComponent {
   code: any = ''
   name: any = ''
   f43: any = ''
-  tmt: any = ''
-  drugDetail: any = ''
+  nhso: any = ''
+  detail: any = ''
 
   constructor (
     private fb: UntypedFormBuilder,
     private message: NzMessageService,
-    private drugService: DrugService,
+    private nationService: NationService,
   ) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       f43: [null, [Validators.required]],
-      tmt: [null, [Validators.required]],
-      drugDetail: [null, [Validators.required]],
+      nhso: [null, [Validators.required]],
+      detail: [null, [Validators.required]],
     })
   }
 
-  showModal(drug: IDrug): void {
+  showModal(item: INation): void {
 
     this.validateForm.reset()
-    this.code = drug.code
-    this.name = drug.name
+    this.code = item.code
+    this.name = item.name
 
-    this.drugDetail = `${this.code} - ${this.name}`
+    this.detail = `${this.code} - ${this.name}`
 
     this.validateForm.patchValue({
-      f43: drug.f43,
-      tmt: drug.tmt,
-      drugDetail: this.drugDetail
+      f43: item.f43,
+      nhso: item.nhso,
+      detail: this.detail
     })
 
-    this.validateForm.controls['drugDetail'].disable()
+    this.validateForm.controls['detail'].disable()
 
     this.isVisible = true
   }
 
-  async doMapping(drug: IDrugMapping) {
+  async doMapping(item: INationMapping) {
     this.isOkLoading = true
     const messageId = this.message.loading('กำลังบันทึกข้อมูล...', { nzDuration: 0 }).messageId
     try {
-      await this.drugService.mapping(drug)
+      await this.nationService.mapping(item)
       this.message.remove(messageId)
       this.isOkLoading = false
       this.isVisible = false
@@ -76,10 +74,10 @@ export class ModalDrugMappingComponent {
 
   handleOk(): void {
     if (this.validateForm.valid) {
-      let mapping: IDrugMapping = {
+      let mapping: INationMapping = {
         code: this.code,
         f43: this.validateForm.value.f43,
-        tmt: this.validateForm.value.tmt,
+        nhso: this.validateForm.value.nhso,
       }
 
       this.doMapping(mapping)
@@ -100,5 +98,4 @@ export class ModalDrugMappingComponent {
     this.isOkLoading = false
     this.isVisible = false
   }
-
 }
