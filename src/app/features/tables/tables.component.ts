@@ -1,7 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { DateTime } from 'luxon';
 import { NzMessageService } from 'ng-zorro-antd/message';
+
+import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { TableService } from './services/table.service';
 
 @Component({
@@ -12,6 +14,8 @@ import { TableService } from './services/table.service';
 export class TablesComponent implements OnInit {
 
   personQuery: any = ''
+  dateServ: any = ''
+  datedsc: any = ''
 
   personTotal = 0
   opdTotal = 0
@@ -20,9 +24,20 @@ export class TablesComponent implements OnInit {
   personPageSize = 20
   personPageIndex = 1
   personOffset = 0
+
+  opdPageSize = 20
+  opdPageIndex = 1
+  opdOffset = 0
+
+  ipdPageSize = 20
+  ipdPageIndex = 1
+  ipdOffset = 0
+
   loading = true
 
   personDataset: any = [];
+  opdDataset: any = [];
+  ipdDataset: any = [];
 
   constructor (
     @Inject('API_URL') private apiUrl: any,
@@ -39,21 +54,31 @@ export class TablesComponent implements OnInit {
     this.router.navigate(['/dashboard'])
   }
 
+  onTabChange(index: number) {
+    // 0 = PERSON
+    // 1 = OPD
+    // 2 = IPD
+    if (index == 0) {
+      this.getPerson();
+    } else if (index == 1) {
+      this.getOpd();
+    } else if (index === 2) {
+      this.getIpd();
+    } else {
+      this.message.warning('ไม่พบเงื่อนไขการแสดงข้อมูล');
+    }
+  }
 
   onPersonPageIndexChange(pageIndex: any) {
-
     this.personOffset = pageIndex === 1 ?
       (pageIndex * this.personPageSize) : (pageIndex - 1) * this.personPageSize;
-
-    this.getPerson()
+    this.getPerson();
   }
 
   onPersonPageSizeChange(pageSize: any) {
     this.personPageSize = pageSize
     this.personPageIndex = 1
-
     this.personOffset = 0
-
     this.getPerson()
   }
 
@@ -96,6 +121,126 @@ export class TablesComponent implements OnInit {
   refreshPerson() {
     this.personQuery = '';
     this.getPerson();
+  }
+
+  // IPD
+  onIpdPageIndexChange(pageIndex: any) {
+    this.ipdOffset = pageIndex === 1 ?
+      (pageIndex * this.ipdPageSize) : (pageIndex - 1) * this.ipdPageSize;
+    this.getIpd();
+  }
+
+  onIpdPageSizeChange(pageSize: any) {
+    this.ipdPageSize = pageSize
+    this.ipdPageIndex = 1
+    this.ipdOffset = 0
+    this.getIpd()
+  }
+
+  async getIpd() {
+    this.loading = true
+    try {
+      const _limit = this.ipdPageSize
+      const _offset = this.ipdOffset
+      const _datedsc = DateTime.fromJSDate(this.datedsc).toSQL();
+      const response: any = await this.tableService.getIpd(_datedsc, _limit, _offset)
+
+      this.loading = false
+      const responseData: any = response.data
+      this.ipdTotal = responseData.total || 1
+
+      const data: any = responseData.data;
+      this.ipdDataset = data.map((v: any) => {
+        v.datedsc = DateTime.fromISO(v.datedsc, {
+          zone: "Asia/Bangkok",
+          locale: 'th'
+        }).toLocaleString(DateTime.DATE_SHORT);
+        v.dateadm = DateTime.fromISO(v.dateadm, {
+          zone: "Asia/Bangkok",
+          locale: 'th'
+        }).toLocaleString(DateTime.DATE_SHORT);
+
+        v.d_update = DateTime.fromISO(v.d_update, {
+          zone: "Asia/Bangkok",
+          locale: 'th'
+        }).toLocaleString(DateTime.DATETIME_SHORT);
+
+        return v;
+      })
+
+    } catch (error: any) {
+      this.loading = false
+      this.message.error(`${error.code} - ${error.message}`)
+    }
+  }
+
+  searchIpd() {
+    this.getIpd();
+  }
+
+  refreshIpd() {
+    this.datedsc = new Date();
+    this.getIpd();
+  }
+
+  // OPD
+  onOpdPageIndexChange(pageIndex: any) {
+    this.opdOffset = pageIndex === 1 ?
+      (pageIndex * this.opdPageSize) : (pageIndex - 1) * this.opdPageSize;
+    this.getOpd();
+  }
+
+  onOpdPageSizeChange(pageSize: any) {
+    this.opdPageSize = pageSize
+    this.opdPageIndex = 1
+    this.opdOffset = 0
+    this.getOpd()
+  }
+
+  async getOpd() {
+    this.loading = true
+    try {
+      const _limit = this.ipdPageSize
+      const _offset = this.ipdOffset
+      const _dateServ = DateTime.fromJSDate(this.dateServ).toSQLDate();
+      const response: any = await this.tableService.getOpd(_dateServ, _limit, _offset)
+
+      this.loading = false
+      const responseData: any = response.data
+      this.opdTotal = responseData.total || 1
+
+      const data: any = responseData.data;
+      this.opdDataset = data.map((v: any) => {
+        v.date_serv = DateTime.fromISO(v.date_serv, {
+          zone: "Asia/Bangkok",
+          locale: 'th'
+        }).toLocaleString(DateTime.DATE_SHORT);
+
+        v.d_update = DateTime.fromISO(v.d_update, {
+          zone: "Asia/Bangkok",
+          locale: 'th'
+        }).toLocaleString(DateTime.DATETIME_SHORT);
+
+        return v;
+      })
+
+    } catch (error: any) {
+      this.loading = false
+      this.message.error(`${error.code} - ${error.message}`)
+    }
+  }
+
+  searchOpd() {
+    this.getOpd();
+  }
+
+  refreshOpd() {
+    this.dateServ = new Date();
+    this.getOpd();
+  }
+
+  onChangeDateServ(event: any) {
+    this.getOpd();
   }
 
 }

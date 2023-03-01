@@ -34,5 +34,25 @@ export class TableService {
     return this.axiosInstance.get(url)
   }
 
+  getOpd(dateServ: any = '', limit: number, offset: number): Promise<AxiosResponse> {
+    let url: any = '';
+    if (dateServ) {
+      url = `/opd?date_serv=${dateServ}&limit=${limit}&offset=${offset}`
+    } else {
+      url = `/opd?limit=${limit}&offset=${offset}`
+    }
+    return this.axiosInstance.get(url)
+  }
+
+  getIpd(datedsc: any = '', limit: number, offset: number): Promise<AxiosResponse> {
+    let url: any = '';
+    if (datedsc) {
+      url = `/ipd?datedsc=${datedsc}&limit=${limit}&offset=${offset}`
+    } else {
+      url = `/ipd?limit=${limit}&offset=${offset}`
+    }
+    return this.axiosInstance.get(url)
+  }
+
 
 }
