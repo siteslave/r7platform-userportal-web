@@ -21,6 +21,8 @@ export class TablesComponent implements OnInit {
   opdTotal = 0
   ipdTotal = 0
 
+  total = 0
+
   personPageSize = 20
   personPageIndex = 1
   personOffset = 0
@@ -92,7 +94,8 @@ export class TablesComponent implements OnInit {
 
       this.loading = false
       const responseData: any = response.data
-      this.personTotal = responseData.total || 1
+      this.personTotal = responseData.total || 0
+      this.total = this.personTotal;
 
       const data: any = responseData.data;
       this.personDataset = data.map((v: any) => {
@@ -142,12 +145,12 @@ export class TablesComponent implements OnInit {
     try {
       const _limit = this.ipdPageSize
       const _offset = this.ipdOffset
-      const _datedsc = DateTime.fromJSDate(this.datedsc).toSQL();
+      const _datedsc = DateTime.fromJSDate(this.datedsc).toSQLDate();
       const response: any = await this.tableService.getIpd(_datedsc, _limit, _offset)
 
       this.loading = false
       const responseData: any = response.data
-      this.ipdTotal = responseData.total || 1
+      this.ipdTotal = responseData.total || 0
 
       const data: any = responseData.data;
       this.ipdDataset = data.map((v: any) => {
@@ -207,7 +210,7 @@ export class TablesComponent implements OnInit {
 
       this.loading = false
       const responseData: any = response.data
-      this.opdTotal = responseData.total || 1
+      this.opdTotal = responseData.total || 0
 
       const data: any = responseData.data;
       this.opdDataset = data.map((v: any) => {
@@ -241,6 +244,10 @@ export class TablesComponent implements OnInit {
 
   onChangeDateServ(event: any) {
     this.getOpd();
+  }
+
+  onChangeDateDischarge(event: any) {
+    this.getIpd();
   }
 
 }

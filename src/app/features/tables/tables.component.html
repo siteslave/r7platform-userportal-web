@@ -10,7 +10,7 @@
     <nz-tabset nzType="card" (nzSelectedIndexChange)="onTabChange($event)">
       <nz-tab [nzTitle]="personTitleTemplate">
         <ng-template #personTitleTemplate>
-          ทะเบียนผู้ป่วย (PERSON) จำนวน {{ personTotal | number }} รายการ
+          ทะเบียนผู้ป่วย (PERSON)
         </ng-template>
 
         <div nz-row style="padding-bottom: 10px;">
@@ -59,11 +59,11 @@
         <nz-pagination [nzPageIndex]="personPageIndex" [nzTotal]="personTotal" nzShowSizeChanger
           [nzPageSize]="personPageSize" [nzPageSizeOptions]="[20,50,100,500]"
           (nzPageIndexChange)="onPersonPageIndexChange($event)" (nzPageSizeChange)="onPersonPageSizeChange($event)"
-          style="float: right;"></nz-pagination>
+          [nzShowTotal]="totalTemplate" style="float: right;"></nz-pagination>
       </nz-tab>
       <nz-tab [nzTitle]="opdTitleTemplate">
         <ng-template #opdTitleTemplate>
-          ผู้ป่วยนอก (OPD) จำนวน {{ opdTotal | number }} รายการ
+          ผู้ป่วยนอก (OPD)
         </ng-template>
         <div nz-row style="padding-bottom: 10px;">
           <div nz-col nzSpan="12">
@@ -105,15 +105,60 @@
         <br>
         <nz-pagination [nzPageIndex]="opdPageIndex" [nzTotal]="opdTotal" nzShowSizeChanger [nzPageSize]="opdPageSize"
           [nzPageSizeOptions]="[20,50,100,500]" (nzPageIndexChange)="onOpdPageIndexChange($event)"
-          (nzPageSizeChange)="onOpdPageSizeChange($event)" style="float: right;"></nz-pagination>
+          (nzPageSizeChange)="onOpdPageSizeChange($event)" [nzShowTotal]="totalTemplate"
+          style="float: right;"></nz-pagination>
 
       </nz-tab>
       <nz-tab [nzTitle]="ipdTitleTemplate">
         <ng-template #ipdTitleTemplate>
-          ผู้ป่วยใน (IPD) จำนวน {{ ipdTotal | number }} รายการ
+          ผู้ป่วยใน (IPD)
         </ng-template>
-        Content of Tab Pane 3</nz-tab>
+        <div nz-row style="padding-bottom: 10px;">
+          <div nz-col nzSpan="12">
+            วันที่จำหน่าย
+            <nz-date-picker [(ngModel)]="datedsc" (ngModelChange)="onChangeDateDischarge($event)"></nz-date-picker>
+            <button nz-button nzType="primary" (click)="searchOpd()">แสดงข้อมูล</button>
+          </div>
+        </div>
+        <nz-table #ipdTable [nzData]="ipdDataset" [nzSize]="'small'" nzShowPagination="false" [nzLoading]="loading">
+          <thead>
+            <tr>
+              <th>HN</th>
+              <th>AN</th>
+              <th>DATE_ADM</th>
+              <th>TIME_ADM</th>
+              <th>DATE_DSC</th>
+              <th>TIME_DSC</th>
+              <th>DISCHS</th>
+              <th>DISCHT</th>
+              <th>DEPT</th>
+              <th>D_UPDATE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of ipdTable.data">
+              <td>{{ data.hn }}</td>
+              <td>{{ data.an }}</td>
+              <td>{{ data.date_adm }}</td>
+              <td>{{ data.time_adm }}</td>
+              <td>{{ data.date_dsc }}</td>
+              <td>{{ data.time_dsc }}</td>
+              <td>{{ data.dischs }}</td>
+              <td>{{ data.discht }}</td>
+              <td>{{ data.dept }}</td>
+              <td>{{ data.d_update }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+        <br>
+        <nz-pagination [nzPageIndex]="ipdPageIndex" [nzTotal]="ipdTotal" nzShowSizeChanger [nzPageSize]="ipdPageSize"
+          [nzPageSizeOptions]="[20,50,100,500]" (nzPageIndexChange)="onIpdPageIndexChange($event)"
+          (nzPageSizeChange)="onIpdPageSizeChange($event)" [nzShowTotal]="totalTemplate"
+          style="float: right;"></nz-pagination>
+      </nz-tab>
     </nz-tabset>
 
   </div>
 </nz-content>
+
+<ng-template #totalTemplate let-total>ทั้งหมด {{ total | number }} รายการ</ng-template>
