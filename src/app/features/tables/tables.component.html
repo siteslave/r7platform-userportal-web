@@ -7,8 +7,54 @@
     nzTitle="รายการตารางข้อมูล" nzSubtitle="รายการข้อมูลที่ส่งเข้าระบบแล้ว">
   </nz-page-header>
   <div class="inner-content">
-    <nz-tabset>
-      <nz-tab nzTitle="ทะเบียนผู้ป่วย">Content of Tab Pane 1</nz-tab>
+    <nz-tabset nzType="card">
+      <nz-tab [nzTitle]="personTitleTemplate">
+        <ng-template #personTitleTemplate>
+          ทะเบียนผู้ป่วย (PERSON) จำนวน {{ personTotal | number }} รายการ
+        </ng-template>
+
+        <div nz-row style="padding-bottom: 10px;">
+          <div nz-col nzSpan="8">
+            <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
+              <input type="text" [(ngModel)]="personQuery" nz-input placeholder="ระบุเลขบัตรประชาชน, HN" />
+            </nz-input-group>
+            <ng-template #suffixButton>
+              <nz-button-group>
+                <button (click)="searchPerson()" nz-button nzType="primary" nzSearch>ค้นหา</button>
+                <button (click)="refreshPerson()" nz-button>ทั้งหมด</button>
+              </nz-button-group>
+            </ng-template>
+          </div>
+        </div>
+        <nz-table #personTable [nzData]="personDataset" [nzSize]="'small'">
+          <thead>
+            <tr>
+              <th>CID</th>
+              <th>HN</th>
+              <th>TITLE</th>
+              <th>FNAME</th>
+              <th>LNAME</th>
+              <th>SEX</th>
+              <th>BIRTH</th>
+              <th>TYPEAREA</th>
+              <th>D_UPDATE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of personTable.data">
+              <td>{{ data.cid }}</td>
+              <td>{{ data.hn }}</td>
+              <td>{{ data.title }}</td>
+              <td>{{ data.fname }}</td>
+              <td>{{ data.lname }}</td>
+              <td>{{ data.sex }}</td>
+              <td>{{ data.birth }}</td>
+              <td>{{ data.typearea }}</td>
+              <td>{{ data.d_update }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </nz-tab>
       <nz-tab nzTitle="ผู้ป่วยนอก (OPD)">Content of Tab Pane 2</nz-tab>
       <nz-tab nzTitle="ผู้ป่วยใน (IPD)">Content of Tab Pane 3</nz-tab>
     </nz-tabset>
