@@ -182,7 +182,7 @@ export class TablesComponent implements OnInit {
   }
 
   refreshIpd() {
-    this.datedsc = new Date();
+    this.datedsc = '';
     this.getIpd();
   }
 
@@ -238,7 +238,7 @@ export class TablesComponent implements OnInit {
   }
 
   refreshOpd() {
-    this.dateServ = new Date();
+    this.dateServ = '';
     this.getOpd();
   }
 
