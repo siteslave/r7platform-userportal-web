@@ -27,6 +27,8 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -56,7 +58,8 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
     NzPopconfirmModule,
     NzTypographyModule,
     NzDatePickerModule,
-    NzTabsModule
+    NzTabsModule,
+    NzBadgeModule
   ],
   exports: [
     NzFormModule,
@@ -84,7 +87,8 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
     NzPopconfirmModule,
     NzTypographyModule,
     NzDatePickerModule,
-    NzTabsModule
+    NzTabsModule,
+    NzBadgeModule
   ]
 })
 export class NgZorroModule { }
