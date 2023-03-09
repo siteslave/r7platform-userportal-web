@@ -27,7 +27,7 @@
           </div>
         </div>
         <nz-table #personTable [nzData]="personDataset" [nzSize]="'small'" nzShowPagination="false"
-          [nzLoading]="loading">
+          [nzLoading]="loading" [nzPageSize]="personPageSize">
           <thead>
             <tr>
               <th>CID</th>
@@ -72,7 +72,8 @@
             <button nz-button nzType="primary" (click)="searchOpd()">แสดงข้อมูล</button>
           </div>
         </div>
-        <nz-table #opdTable [nzData]="opdDataset" [nzSize]="'small'" nzShowPagination="false" [nzLoading]="loading">
+        <nz-table #opdTable [nzData]="opdDataset" [nzSize]="'small'" nzShowPagination="false" [nzLoading]="loading"
+          [nzPageSize]="opdPageSize">
           <thead>
             <tr>
               <th>HN</th>
@@ -120,7 +121,8 @@
             <button nz-button nzType="primary" (click)="searchOpd()">แสดงข้อมูล</button>
           </div>
         </div>
-        <nz-table #ipdTable [nzData]="ipdDataset" [nzSize]="'small'" nzShowPagination="false" [nzLoading]="loading">
+        <nz-table #ipdTable [nzData]="ipdDataset" [nzSize]="'small'" nzShowPagination="false" [nzLoading]="loading"
+          [nzPageSize]="ipdPageSize">
           <thead>
             <tr>
               <th>HN</th>
@@ -139,10 +141,10 @@
             <tr *ngFor="let data of ipdTable.data">
               <td>{{ data.hn }}</td>
               <td>{{ data.an }}</td>
-              <td>{{ data.date_adm }}</td>
-              <td>{{ data.time_adm }}</td>
-              <td>{{ data.date_dsc }}</td>
-              <td>{{ data.time_dsc }}</td>
+              <td>{{ data.dateadm }}</td>
+              <td>{{ data.timeadm }}</td>
+              <td>{{ data.datedsc }}</td>
+              <td>{{ data.timedsc }}</td>
               <td>{{ data.dischs }}</td>
               <td>{{ data.discht }}</td>
               <td>{{ data.dept }}</td>
