@@ -27,7 +27,7 @@
           </div>
         </div>
         <nz-table #personTable [nzData]="personDataset" [nzSize]="'small'" nzShowPagination="false"
-          [nzLoading]="loading">
+          [nzLoading]="loading" [nzPageSize]="personPageSize">
           <thead>
             <tr>
               <th>CID</th>
@@ -72,7 +72,8 @@
             <button nz-button nzType="primary" (click)="searchOpd()">แสดงข้อมูล</button>
           </div>
         </div>
-        <nz-table #opdTable [nzData]="opdDataset" [nzSize]="'small'" nzShowPagination="false" [nzLoading]="loading">
+        <nz-table #opdTable [nzData]="opdDataset" [nzSize]="'small'" nzShowPagination="false" [nzLoading]="loading"
+          [nzPageSize]="opdPageSize">
           <thead>
             <tr>
               <th>HN</th>
@@ -120,7 +121,8 @@
             <button nz-button nzType="primary" (click)="searchOpd()">แสดงข้อมูล</button>
           </div>
         </div>
-        <nz-table #ipdTable [nzData]="ipdDataset" [nzSize]="'small'" nzShowPagination="false" [nzLoading]="loading">
+        <nz-table #ipdTable [nzData]="ipdDataset" [nzSize]="'small'" nzShowPagination="false" [nzLoading]="loading"
+          [nzPageSize]="ipdPageSize">
           <thead>
             <tr>
               <th>HN</th>
