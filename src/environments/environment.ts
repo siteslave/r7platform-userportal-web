@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: '/api/portal'
+  apiUrl: 'https://r7.moph.go.th/platform/api/portal'
 };
