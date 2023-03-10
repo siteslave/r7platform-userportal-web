@@ -72,8 +72,9 @@ export class TablesComponent implements OnInit {
   }
 
   onPersonPageIndexChange(pageIndex: any) {
-    this.personOffset = pageIndex === 1 ?
-      (pageIndex * this.personPageSize) : (pageIndex - 1) * this.personPageSize;
+    const offset = pageIndex === 1 ?
+      0 : (pageIndex - 1) * this.personPageSize;
+    this.personOffset = offset;
     this.getPerson();
   }
 
@@ -128,8 +129,9 @@ export class TablesComponent implements OnInit {
 
   // IPD
   onIpdPageIndexChange(pageIndex: any) {
-    this.ipdOffset = pageIndex === 1 ?
-      (pageIndex * this.ipdPageSize) : (pageIndex - 1) * this.ipdPageSize;
+    const offset = pageIndex === 1 ?
+      0 : (pageIndex - 1) * this.ipdPageSize;
+    this.ipdOffset = offset;
     this.getIpd();
   }
 
@@ -188,8 +190,9 @@ export class TablesComponent implements OnInit {
 
   // OPD
   onOpdPageIndexChange(pageIndex: any) {
-    this.opdOffset = pageIndex === 1 ?
-      (pageIndex * this.opdPageSize) : (pageIndex - 1) * this.opdPageSize;
+    const offset = pageIndex === 1 ?
+      0 : (pageIndex - 1) * this.opdPageSize;
+    this.opdOffset = offset;
     this.getOpd();
   }
 
