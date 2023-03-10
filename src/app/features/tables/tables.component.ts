@@ -203,8 +203,8 @@ export class TablesComponent implements OnInit {
   async getOpd() {
     this.loading = true
     try {
-      const _limit = this.ipdPageSize
-      const _offset = this.ipdOffset
+      const _limit = this.opdPageSize
+      const _offset = this.opdOffset
       const _dateServ = DateTime.fromJSDate(this.dateServ).toSQLDate();
       const response: any = await this.tableService.getOpd(_dateServ, _limit, _offset)
 
