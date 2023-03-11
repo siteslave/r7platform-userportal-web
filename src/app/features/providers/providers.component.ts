@@ -55,7 +55,7 @@ export class ProvidersComponent {
   onPageIndexChange(pageIndex: any) {
 
     this.offset = pageIndex === 1 ?
-      (pageIndex * this.pageSize) : (pageIndex - 1) * this.pageSize;
+      0 : (pageIndex - 1) * this.pageSize;
 
     this.getItems()
   }

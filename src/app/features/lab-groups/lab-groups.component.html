@@ -17,7 +17,7 @@
           <span nz-icon nzType="plus"></span>
           เพิ่ม</button>
         <nz-upload *nzSpaceItem [nzAction]="uploadUrl" [nzHeaders]="uploadHeader" (nzChange)="handleChange($event)"
-          nzFileType="text/csv" [nzSize]="2048">
+          nzFileType="text/csv" [nzSize]="10240">
           <button nz-button nzType="primary">
             <span nz-icon nzType="upload"></span>
             อัปโหลดไฟล์
@@ -57,7 +57,7 @@
     <br>
     <nz-pagination [nzPageIndex]="pageIndex" [nzTotal]="total" nzShowSizeChanger [nzPageSize]="pageSize"
       [nzPageSizeOptions]="[20,50,100,500]" (nzPageIndexChange)="onPageIndexChange($event)"
-      (nzPageSizeChange)="onPageSizeChange($event)"></nz-pagination>
+      (nzPageSizeChange)="onPageSizeChange($event)" [nzShowTotal]="totalTemplate"></nz-pagination>
 
   </div>
 </nz-content>
@@ -65,3 +65,5 @@
 <app-modal-search #mdlSearch (onSubmit)="onSearchSubmit($event)"></app-modal-search>
 
 <app-modal-lab-group-new #mdlNew (onSubmit)="onAddSubmit($event)"></app-modal-lab-group-new>
+
+<ng-template #totalTemplate let-total>ทั้งหมด {{ total | number }} รายการ</ng-template>
