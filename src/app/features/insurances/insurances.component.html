@@ -64,7 +64,7 @@
     <br>
     <nz-pagination [nzPageIndex]="pageIndex" [nzTotal]="total" nzShowSizeChanger [nzPageSize]="pageSize"
       [nzPageSizeOptions]="[20,50,100,500]" (nzPageIndexChange)="onPageIndexChange($event)"
-      (nzPageSizeChange)="onPageSizeChange($event)"></nz-pagination>
+      (nzPageSizeChange)="onPageSizeChange($event)" [nzShowTotal]="totalTemplate"></nz-pagination>
 
   </div>
 </nz-content>
@@ -73,3 +73,5 @@
 
 <app-modal-insurance-new #mdlNew (onSubmit)="onAddSubmit($event)"></app-modal-insurance-new>
 <app-modal-insurance-mapping #mdlMapping (onSubmit)="onMappingSubmit($event)"></app-modal-insurance-mapping>
+
+<ng-template #totalTemplate let-total>ทั้งหมด {{ total | number }} รายการ</ng-template>

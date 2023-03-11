@@ -61,7 +61,8 @@
     <br>
     <nz-pagination [nzPageIndex]="pageIndex" [nzTotal]="total" nzShowSizeChanger [nzPageSize]="pageSize"
       [nzPageSizeOptions]="[20,50,100,500]" (nzPageIndexChange)="onPageIndexChange($event)"
-      (nzPageSizeChange)="onPageSizeChange($event)"></nz-pagination>
+      (nzPageSizeChange)="onPageSizeChange($event)" [nzShowTotal]="totalTemplate"
+      [nzShowTotal]="totalTemplate"></nz-pagination>
 
   </div>
 </nz-content>
@@ -69,3 +70,4 @@
 <app-modal-search #mdlSearch (onSubmit)="onSearchSubmit($event)"></app-modal-search>
 
 <app-modal-drug-usage-new #mdlDrugUsagNew (onSubmit)="onAddSubmit($event)"></app-modal-drug-usage-new>
+<ng-template #totalTemplate let-total>ทั้งหมด {{ total | number }} รายการ</ng-template>
