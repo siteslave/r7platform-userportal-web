@@ -21,7 +21,7 @@
         <div nz-row style="padding-bottom: 10px;">
           <div nz-col nzSpan="8">
             <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
-              <input type="text" [(ngModel)]="personQuery" nz-input placeholder="ระบุเลขบัตรประชาชน, HN" />
+              <input type="text" [(ngModel)]="personQuery" nz-input placeholder="ระบุเลขบัตรประชาชน, HN, ชื่อ" />
             </nz-input-group>
             <ng-template #suffixButton>
               <nz-button-group>
@@ -73,7 +73,7 @@
         <div nz-row style="padding-bottom: 10px;">
           <div nz-col nzSpan="12">
             วันที่ให้บริการ
-            <nz-date-picker [(ngModel)]="dateServ" (ngModelChange)="onChangeDateServ($event)"></nz-date-picker>
+            <nz-date-picker [(ngModel)]="dateServ"></nz-date-picker>
             <button nz-button nzType="primary" (click)="searchOpd()">แสดงข้อมูล</button>
           </div>
         </div>
@@ -122,8 +122,8 @@
         <div nz-row style="padding-bottom: 10px;">
           <div nz-col nzSpan="12">
             วันที่จำหน่าย
-            <nz-date-picker [(ngModel)]="datedsc" (ngModelChange)="onChangeDateDischarge($event)"></nz-date-picker>
-            <button nz-button nzType="primary" (click)="searchOpd()">แสดงข้อมูล</button>
+            <nz-date-picker [(ngModel)]="datedsc"></nz-date-picker>
+            <button nz-button nzType="primary" (click)="searchIpd()">แสดงข้อมูล</button>
           </div>
         </div>
         <nz-table #ipdTable [nzData]="ipdDataset" [nzSize]="'small'" nzShowPagination="false" [nzLoading]="loading"

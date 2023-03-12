@@ -198,7 +198,7 @@ export class DashboardComponent implements OnInit {
     dataIpd = data.ipd;
 
     for await (const d of this.dates) {
-      const idx = _.findIndex(dataIpd, { dateadm: d });
+      const idx = _.findIndex(dataIpd, { datedsc: d });
       if (idx > -1) {
         objIpd.data.push(Number(dataIpd[idx].total));
       } else {
@@ -243,6 +243,11 @@ export class DashboardComponent implements OnInit {
         feature: {
           saveAsImage: {}
         }
+      },
+      axisLabel: {
+        show: true,
+        interval: 0,
+        rotate: 45,
       },
       xAxis: {
         type: 'category',
