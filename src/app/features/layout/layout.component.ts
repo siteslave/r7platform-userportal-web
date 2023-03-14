@@ -16,10 +16,8 @@ export class LayoutComponent {
     private router: Router,
     private modal: NzModalService,
   ) {
-
     const token: any = sessionStorage.getItem('token');
     const decoded = this.jwtHelper.decodeToken(token);
-    console.log(decoded);
     this.hospname = decoded.hospname;
   }
 
